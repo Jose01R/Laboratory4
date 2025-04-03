@@ -16,17 +16,17 @@
                   <Font name="Arial" size="30.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="72.0" mnemonicParsing="false" onAction="#Example" onMousePressed="#exampleOnMousePressed" prefHeight="62.0" prefWidth="219.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Example" textFill="WHITE">
+            <Button layoutX="10.0" layoutY="72.0" mnemonicParsing="false" onAction="#studentsOnAction" onMousePressed="#exampleOnMousePressed" prefHeight="62.0" prefWidth="219.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Students" textFill="WHITE">
                <font>
                   <Font name="Arial" size="30.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="72.0" mnemonicParsing="false" onAction="#Runtime" onMousePressed="#exampleOnMousePressed" prefHeight="62.0" prefWidth="219.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Runtime" textFill="WHITE">
+            <Button layoutX="10.0" layoutY="72.0" mnemonicParsing="false" onAction="#coursesOnAction" onMousePressed="#exampleOnMousePressed" prefHeight="62.0" prefWidth="219.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Courses" textFill="WHITE">
                <font>
                   <Font name="Arial" size="30.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="134.0" mnemonicParsing="false" onAction="#Recursive" prefHeight="62.0" prefWidth="219.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Recursive" textFill="WHITE">
+            <Button layoutX="10.0" layoutY="134.0" mnemonicParsing="false" onAction="#registerOnAction" prefHeight="62.0" prefWidth="219.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Register" textFill="WHITE">
                <font>
                   <Font name="Arial" size="30.0" />
                </font>
