@@ -20,33 +20,13 @@ public class HelloController {
     @FXML
     private AnchorPane ap;
 
-    private int n;
-    private int m;
-    private int[] a;
-    private  int[] b;
-
-    private void load(String form){
+    private void load(String form) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(form));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-   @FXML
-    public void Runtime(ActionEvent actionEvent) {
-        load("runtime.fxml");
-    }
-
-    @FXML
-    public void Example(ActionEvent actionEvent) {
-        load("example.fxml");
-    }
-
-    @FXML
-    public void Recursive(ActionEvent actionEvent) {
-        load("recursive.fxml");
     }
 
     @FXML
@@ -57,12 +37,27 @@ public class HelloController {
 
     @FXML
     public void Exit(ActionEvent actionEvent) {
-       System.exit(0);
+        System.exit(0);
     }
 
     @FXML
     public void exampleOnMousePressed(Event event) {
         this.txtMessage.setText("Loading Example. Please wait!!!");
 
+    }
+
+    @FXML
+    public void studentsOnAction(ActionEvent actionEvent) {
+        load("student.fxml");
+    }
+
+    @FXML
+    public void registerOnAction(ActionEvent actionEvent) {
+        load("register.fxml");
+    }
+
+    @FXML
+    public void coursesOnAction(ActionEvent actionEvent) {
+        load("course.fxml");
     }
 }
