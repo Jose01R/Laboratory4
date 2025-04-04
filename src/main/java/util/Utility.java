@@ -76,8 +76,12 @@ public class Utility {
                 Student st1 = (Student) a; Student st2 = (Student) b;
                 return st1.getId().compareTo(st2.getId()) < 0 ? -1
                         :  st1.getId().compareTo(st2.getId()) > 0 ? 1 : 0;
-
+            case "ByName":
+                Student student = (Student) a; String name = (String) b;
+                return student.getName().compareTo(name) < 0 ? -1
+                        : student.getName().compareTo(name) > 0 ? 1 : 0;
         }
+
         return 2; //Unknown
     }
 
@@ -86,6 +90,7 @@ public class Utility {
         if(a instanceof String && b instanceof String) return "String";
         if(a instanceof Character && b instanceof Character) return "Character";
         if(a instanceof Student && b instanceof Student) return "Student";
+        if(a instanceof Student && b instanceof String) return "ByName";
         return "Unknown";
     }
 }
