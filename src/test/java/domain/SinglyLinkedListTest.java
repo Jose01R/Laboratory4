@@ -2,8 +2,6 @@ package domain;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SinglyLinkedListTest {
 
     /*
@@ -22,6 +20,67 @@ class SinglyLinkedListTest {
     ¿En la lista existe una estudiante con el nombre Fabiana? true
 
      */
+
+    @Test
+    void probarCountNamesYFindNames(){
+
+        SinglyLinkedList list = new SinglyLinkedList();
+
+
+        list.add(new Student("001", "Carlos", 20, "San José"));
+        list.add(new Student("002", "Kristel", 30, "Cartago"));
+        list.add(new Student("003", "Carlos", 40, "San vito"));
+        list.add(new Student("004", "Luis",50, "Perez zeledon"));
+        list.add(new Student("005", "Carlos", 83, "Heredia"));
+
+        System.out.println("Carlos aparece en la lista: "+ countNames(list,"Carlos")+" veces");
+        System.out.println("Ana aparece en la lista: "+ findNames(list,"Ana"));
+        System.out.println("Kristel aparece en la lista: "+ findNames(list,"Kristel"));
+    }
+
+    int countNames(SinglyLinkedList list, String name){
+
+        int count = 0;
+        int index = 1;
+        Node nodeData = null;
+        while (true) {
+            try {
+                nodeData = list.getNode(index);
+            } catch (ListException e) {
+                throw new RuntimeException(e);
+            }
+            if (nodeData == null) break;
+
+            if (util.Utility.compare(nodeData.data,name) == 0) {
+                count++;
+            }
+            index++;
+        }
+
+        return count;
+    }
+    boolean findNames(SinglyLinkedList list,String name){
+
+        boolean insertado= false;
+        Node nodeData= null;
+        int index=1;
+        while (true){
+            try {
+                nodeData= list.getNode(index);
+            } catch (ListException e) {
+                throw new RuntimeException(e);
+            }
+            if(nodeData==null)break;
+
+            if(util.Utility.compare(nodeData.data,name)==0)
+                insertado=true;
+            index++;
+
+        }
+
+        return insertado;
+    }
+
 
     @Test
     void test1(){
