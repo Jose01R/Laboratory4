@@ -71,39 +71,56 @@ class DoublyLinkedListTest {
 
         try {
             //prueba del metodo contains(objetc) listo
-            System.out.println("");//para que en el panel de control haya un espacio
+            System.out.println("\n");//para que en el panel de control haya un espacio
             System.out.println(list.contains(new Course("IF-6201")) );
             System.out.println(list.contains(new Course("IF-3001")) );
             System.out.println(list.contains(new Course("IF-4001")) );
             System.out.println(list.contains(new Course("IF-6100")) );
-            System.out.println("");//para que en el panel de control haya un espacio
+            System.out.println("\n");//para que en el panel de control haya un espacio
 
             //prueba del metodo getNode(i) listo
             for (int i = 1; i <= list.size(); i++) {
                 System.out.println("El elemento en la posicion " + i + " es: " + list.getNode(i).data);
             }
 
-            //prueba del metodo indexOf(object)
-            System.out.println("");
-            for (int i = 1; i < list.size() ; i++) {
-                System.out.println(
-                        list.contains(new Course("IF-6001"))
-                                ? "The course exists in the list: "+list.getNode(i).data + " Index: " + list.indexOf(list)
-                                :"The course not exists in the list: "+list.getNode(i).data
-                );
+            //prueba del metodo indexOf(object) listo
+            Course courseToSeach1 = new Course("IF-3001");
+            Course courseToSeach2 = new Course("IF-6100");
+            Course courseToSeach3 = new Course("IF-3000");
+            Course courseToSeach4 = new Course("XS-0105");
+            Course courseToSeach5 = new Course("IF-3100");
+
+
+            System.out.println("\n");
+            System.out.println("El curso Algoritmos y Estructuras de Datos, con Id=IF-3001 se encuentra en la posición: " + list.indexOf(courseToSeach1));
+            System.out.println("El curso Análisis y Diseño de Sistemas, con con Id=IF-6100 se encuentra en la posicion: " + list.indexOf(courseToSeach2));
+            System.out.println("El curso Programación 2, con Id=IF-3000 se encuentra en la posición: " + list.indexOf(courseToSeach3));
+            System.out.println("El curso Estadísticas para Informáticos, conId=XS-0105 se encuentra en la posición: " + list.indexOf(courseToSeach4));
+            System.out.println("El curso Lenguajes app Comerciales, con Id=IF-3100 se encuentra en la posición: " + list.indexOf(courseToSeach5));
+
+            //prueba de ordene la lista de cursos por nombre, con el metodo sort() no estoy seguro
+            System.out.println("\n");
+            System.out.println("The course list is sort the name courses");
+            list.sort();
+            System.out.println(list);
+
+            //prueba del suprimir los cursos con Id= IF-5000, IF-5100 listo
+            Course deletedCourse1 = new Course("IF-5000");
+            Course deletedCourse2 = new Course("IF-5100");
+            System.out.println("\n");
+            System.out.println("The course with ID selected they have been eliminated");
+
+            if (list.contains(deletedCourse1)) {
+                list.remove(deletedCourse1);
+                System.out.println("The course with ID = [" + deletedCourse1.getId() + "] has been deleted");
             }
+            if (list.contains(deletedCourse2)) {
+                list.remove(deletedCourse2);
+                System.out.println("The course with ID = [" + deletedCourse2.getId() + "] has been deleted");
+            }
+            System.out.println("\n");
+            System.out.println(list);
 
-
-
-
-
-
-
-//            //prueba de suprimir un curso con id con remove
-//            if (list.contains(new Course("IF-5000"))) {
-//                list.remove(list);
-//                System.out.println("The element[" + value + "] has been deleted");
-//            }
 
         } catch (ListException e) {
             throw new RuntimeException(e);
