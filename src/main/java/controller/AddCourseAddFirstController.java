@@ -9,17 +9,17 @@ import javafx.scene.layout.BorderPane;
 public class AddCourseAddFirstController
 {
     @javafx.fxml.FXML
-    private BorderPane bp;
-    @javafx.fxml.FXML
     private TextField textFieldName;
-    @javafx.fxml.FXML
-    private TextField textFieldCourseId;
-    @javafx.fxml.FXML
-    private TextField textFieldCredits;
 
     //defino la lista enlazada interna
     private DoublyLinkedList courseList;
     private Alert alert; //para el manejo de alertas
+    @javafx.fxml.FXML
+    private TextField textFieldStudentId;
+    @javafx.fxml.FXML
+    private TextField textFieldAge;
+    @javafx.fxml.FXML
+    private TextField textFieldAddress;
 
     @javafx.fxml.FXML
     public void initialize() {
@@ -28,20 +28,19 @@ public class AddCourseAddFirstController
         alert = util.FXUtility.alert("Course List", "Add Course (Add First)");
     }
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void closeCourseOnAction(ActionEvent actionEvent) {
-        util.FXUtility.loadPage("ucr.lab.HelloApplication", "course.fxml", bp);
+        //util.FXUtility.loadPage("ucr.lab.HelloApplication", "course.fxml", bp);
 
     }
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void cleanCourseOnAction(ActionEvent actionEvent) {
     }
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void addCourseOnAction(ActionEvent actionEvent) {
     }
-
 
 
 //

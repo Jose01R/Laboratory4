@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddStudentAddSortedController">
+    <center>
+        <AnchorPane prefHeight="380.0" prefWidth="470.0">
+            <children>
+                <Pane prefHeight="59.0" prefWidth="560.0" style="-fx-background-color: #928a37;">
+                    <children>
+                        <Label layoutX="101.0" layoutY="12.0" text="Add Students (Add Sorted)">
+                            <font>
+                                <Font name="Arial" size="30.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </Pane>
+                <Pane layoutY="59.0" prefHeight="249.0" prefWidth="560.0" style="-fx-background-color: #c6bb66;">
+                    <children>
+                        <Label layoutX="45.0" layoutY="22.0" text="Student ID:">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="textFieldStudentId" layoutX="151.0" layoutY="8.0" prefHeight="48.0" prefWidth="149.0">
+                            <font>
+                                <Font name="Arial" size="18.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="46.0" layoutY="80.0" text="Name:">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="textFieldName" layoutX="152.0" layoutY="67.0" prefHeight="48.0" prefWidth="387.0">
+                            <font>
+                                <Font name="Arial" size="18.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="45.0" layoutY="137.0" text="Age:">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="textFieldAge" layoutX="151.0" layoutY="124.0" prefHeight="48.0" prefWidth="122.0">
+                            <font>
+                                <Font name="Arial" size="18.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="45.0" layoutY="191.0" text="Address:">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="textFieldAddress" layoutX="151.0" layoutY="178.0" prefHeight="48.0" prefWidth="387.0">
+                            <font>
+                                <Font name="Arial" size="18.0" />
+                            </font>
+                        </TextField>
+                    </children>
+                </Pane>
+                <Pane layoutY="308.0" prefHeight="118.0" prefWidth="560.0" style="-fx-background-color: #aca34e;">
+                    <children>
+                        <Button layoutX="20.0" layoutY="45.0" mnemonicParsing="false" onAction="#addSortedStudentOnAction" prefHeight="59.0" prefWidth="134.0" text="Add">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="219.0" layoutY="45.0" mnemonicParsing="false" onAction="#cleanSortedStudentOnAction" prefHeight="59.0" prefWidth="134.0" text="Clean">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="406.0" layoutY="45.0" mnemonicParsing="false" onAction="#closeSortedStudentOnAction" prefHeight="59.0" prefWidth="134.0" text="Close">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </Pane>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>
