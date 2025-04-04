@@ -67,11 +67,12 @@ public class SinglyLinkedList implements List{
     public void addFirst(Object element) {
         Node newNode = new Node(element);
 
-        if (isEmpty())
+        if (isEmpty()) {
             first = newNode;
-        else
+        } else {
             newNode.next = first;
-        first = newNode;
+            first = newNode;
+        }
 
     }
 
@@ -82,7 +83,25 @@ public class SinglyLinkedList implements List{
 
     @Override
     public void addInSortedList(Object element) {
-        //TODO
+        Node newNode = new Node(element);
+
+        // Caso 1: La lista está vacía o el nuevo elemento es menor que el primero
+        if (isEmpty() || util.Utility.compare(element, first.data) < 0) {
+            newNode.next = first;
+            first = newNode;
+            return;
+        }
+
+        // Caso 2: Buscar la posición correcta para insertar
+        Node current = first;
+
+        while (current.next != null && util.Utility.compare(current.next.data, element) < 0) {
+            current = current.next;
+        }
+
+        newNode.next = current.next;
+        current.next = newNode;
+
     }
 
     @Override
@@ -150,25 +169,8 @@ public class SinglyLinkedList implements List{
             throw new ListException("Singly list is empty");
         }
 
-        boolean swapped;
-        do {
-            swapped = false;
-            Node aux = first;
-            while (aux.next != null) {
-                // Compara el nodo actual con el siguiente
-                if (util.Utility.compare(aux.data, aux.next.data) > 0) {
-                    // Intercambia los datos de los nodos
-                    Object temp = aux.data;
-                    aux.data = aux.next.data;
-                    aux.next.data = temp;
-                    swapped = true;
-                }
-                aux = aux.next;
-            }
-        } while (swapped);
-
-
-    }
+        bubbleSort();
+}
 
     @Override
     public int indexOf(Object element) throws ListException {
@@ -275,4 +277,23 @@ public class SinglyLinkedList implements List{
         }
         return result;
     }
+
+    private void bubbleSort() {
+        boolean swapped;
+        do {
+            swapped = false;
+            Node aux = first;
+            while (aux.next != null) {
+                if (util.Utility.compare(aux.data, aux.next.data) > 0) {
+                    // Intercambia los datos
+                    Object temp = aux.data;
+                    aux.data = aux.next.data;
+                    aux.next.data = temp;
+                    swapped = true;
+                }
+                aux = aux.next;
+            }
+        } while (swapped);
+    }
+
 }

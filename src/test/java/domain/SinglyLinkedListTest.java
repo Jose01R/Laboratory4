@@ -2,8 +2,6 @@ package domain;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SinglyLinkedListTest {
 
     /*
@@ -24,7 +22,7 @@ class SinglyLinkedListTest {
      */
 
     @Test
-    void test1(){
+    void test1() {
         SinglyLinkedList list = new SinglyLinkedList();
         list.add(new Student("1", "Maria", 20, "Cartago"));
         list.add(new Student("2", "Carlos", 22, "San Jose"));
@@ -38,72 +36,101 @@ class SinglyLinkedListTest {
         list.add(new Student("10", "Pedro,", 24, "Heredia"));
 
         System.out.println(list);
+         try {
+                //PROBAMOS CONTAINS
+                System.out.println("¿Exists Pedro, Id = 20? " + list.contains(new Student("20")));
+                System.out.println("¿Exists Paula, Id = 4? " + list.contains(new Student("4")));
+                System.out.println("¿Exists Carlos, Id = 5? " + list.contains(new Student("5")));
+                System.out.println("¿Exists Carlos, Id = 8? " + list.contains(new Student("8")));
 
-        try {
-            //PROBAMOS CONTAINS
-            System.out.println("¿Existe Pedro, Id = 20? " + list.contains(new Student("20")) );
-            System.out.println("¿Existe Paula, Id = 4? " + list.contains(new Student("4")) );
-            System.out.println("¿Existe Carlos, Id = 5? " + list.contains(new Student("5")) );
-            System.out.println("¿Existe Carlos, Id = 8? " + list.contains(new Student("8")) );
+                System.out.println("\n");
 
-            System.out.println("\n");
+                //PROBAMOS GET NODE
+                for (int i = 1; i <= list.size(); i++) {
+                    System.out.println("The element in position " + i + " is: " + list.getNode(i).data);
+                }
 
-            //PROBAMOS GET NODE
-            for (int i = 1; i <= list.size(); i++) {
-                System.out.println("El elemento en la posicion " + i + " es: " + list.getNode(i).data);
+                //PROBAMOS INDEX OF
+                Student studentToSeach1 = new Student("2");
+                Student studentToSeach2 = new Student("100");
+                System.out.println("\n");
+                System.out.println("The student Carlos with Id=8 is in position: " + list.indexOf(studentToSeach1));
+                System.out.println("The student Carlos with Id=100 is in position: " + list.indexOf(studentToSeach2));
+
+                System.out.println("\n");
+
+                //PROBAMOS REMOVE
+                Student studentSearched1 = new Student("1");
+                Student studentSearched2 = new Student("3");
+                Student studentSearched3 = new Student("5");
+                if (list.contains(studentSearched1)) {
+                    list.remove(studentSearched1);
+                    System.out.println("The student with ID = [" + studentSearched1.getId() + "] has been deleted");
+                }
+                if (list.contains(studentSearched2)) {
+                    list.remove(studentSearched2);
+                    System.out.println("The student with ID = [" + studentSearched2.getId() + "] has been deleted");
+                }
+                if (list.contains(studentSearched3)) {
+                    list.remove(studentSearched3);
+                    System.out.println("The student with ID = [" + studentSearched3.getId() + "] has been deleted");
+                }
+                System.out.println(list);
+
+                //PROBAMOS GET LAST Y GET PREV
+                System.out.println(list.getLast());
+                System.out.println(list.getPrev(studentToSeach1));
+                //PROBAMOS GET NEXT
+                System.out.println(list.getNext(studentToSeach1));
+
+                //PROBAMOS REMOVE LAST
+                System.out.println("\n");
+                System.out.println("LAST ELEMENT: " + list.removeLast());
+                System.out.println("\n" + list);
+
+             //PROBAMOS REMOVE LAST
+             System.out.println("\n");
+             System.out.println("FIRST ELEMENT: " + list.removeFirst());
+             System.out.println("\n" + list);
+
+            } catch (ListException e) {
+                throw new RuntimeException(e);
             }
-
-            //PROBAMOS INDEX OF
-            Student studentToSeach1 = new Student("2");
-            Student studentToSeach2 = new Student("100");
-            System.out.println("\n");
-            System.out.println("El estudiante Carlos con Id=8 se encuentra en la posicion: " + list.indexOf(studentToSeach1));
-            System.out.println("El estudiante Carlos con Id=100 se encuentra en la posicion: " + list.indexOf(studentToSeach2));
-
-            System.out.println("\n");
-
-            //PROBAMOS REMOVE
-            Student studentSearched1 = new Student("1");
-            Student studentSearched2 = new Student("3");
-            Student studentSearched3 = new Student("5");
-            if (list.contains(studentSearched1)) {
-                list.remove(studentSearched1);
-                System.out.println("The student with ID = [" + studentSearched1.getId() + "] has been deleted");
-            }
-            if (list.contains(studentSearched2)) {
-                list.remove(studentSearched2);
-                System.out.println("The student with ID = [" + studentSearched2.getId() + "] has been deleted");
-            }
-            if (list.contains(studentSearched3)) {
-                list.remove(studentSearched3);
-                System.out.println("The student with ID = [" + studentSearched3.getId() + "] has been deleted");
-            }
-            System.out.println(list);
-
-            //PROBAMOS GET LAST Y GET PREV
-            System.out.println(list.getLast());
-            System.out.println(list.getPrev(studentToSeach1));
-            //PROBAMOS GET NEXT
-            System.out.println(list.getNext(studentToSeach1));
-
-            //PROBAMOS REMOVE LAST
-            System.out.println("\n");
-            System.out.println("Ultimo elemento: "+ list.removeLast());
-            System.out.println("\n" + list);
-
-            //PROBAMOS METODO SORT
-            list.add(new Student("5", "Pedro,", 24, "Alajuela"));
-            list.add(new Student("14", "fgh,", 20, "Heredia"));
-            list.add(new Student("12", "ghjk,", 29, "Cartago"));
-            list.add(new Student("19", "kl,", 24, "Heredia"));
-            list.sort();
-            System.out.println(list);
-
-        } catch (ListException e) {
-            throw new RuntimeException(e);
-        }
 
     }
+
+    @Test
+    void testSort() {
+        SinglyLinkedList list = new SinglyLinkedList();
+        list.add(new Student("5", "Pedro", 24, "Alajuela"));
+        list.add(new Student("2", "Carlos", 22, "San Jose"));
+        list.add(new Student("4", "Paula", 18, "Turrialba"));
+        list.add(new Student("1", "Maria", 20, "Cartago"));
+
+        System.out.println("Before sort:");
+        System.out.println(list);
+
+        try {
+            list.sort();
+            System.out.println("After sort:");
+            System.out.println(list);
+        } catch (ListException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testAddInSortedList() {
+        SinglyLinkedList sortedList = new SinglyLinkedList();
+        sortedList.addInSortedList(new Student("3", "Laura", 20, "Paraiso"));
+        sortedList.addInSortedList(new Student("1", "Ana", 19, "Heredia"));
+        sortedList.addInSortedList(new Student("4", "Pedro", 25, "Cartago"));
+        sortedList.addInSortedList(new Student("2", "Carlos", 22, "Alajuela"));
+
+        System.out.println("List with addInSortedList:");
+        System.out.println(sortedList);
+    }
+
 
     public void test2(){
         SinglyLinkedList list = new SinglyLinkedList();
@@ -142,12 +169,9 @@ class SinglyLinkedListTest {
 
             System.out.println(list);
 
-
-
         } catch (ListException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 

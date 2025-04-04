@@ -11,7 +11,7 @@ public class FXUtility {
 
     public static void loadPage(String className, String page, BorderPane bp) {
         try {
-            Class cl = Class.forName(className);
+            Class<?> cl = Class.forName(className);
             FXMLLoader fxmlLoader = new FXMLLoader(cl.getResource(page));
             cl.getResource("bp");
             bp.setCenter(fxmlLoader.load());
