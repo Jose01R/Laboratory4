@@ -82,7 +82,25 @@ public class SinglyLinkedList implements List{
 
     @Override
     public void addInSortedList(Object element) {
-        //TODO
+        Node newNode = new Node(element);
+
+        // Caso 1: La lista está vacía o el nuevo elemento es menor que el primero
+        if (isEmpty() || util.Utility.compare(element, first.data) < 0) {
+            newNode.next = first;
+            first = newNode;
+            return;
+        }
+
+        // Caso 2: Buscar la posición correcta para insertar
+        Node aux = first;
+        while (aux.next != null && util.Utility.compare(aux.next.data, element) < 0) {
+            aux = aux.next;
+        }
+
+        // Insertar el nodo
+        newNode.next = aux.next;
+        aux.next = newNode;
+
     }
 
     @Override
@@ -150,25 +168,8 @@ public class SinglyLinkedList implements List{
             throw new ListException("Singly list is empty");
         }
 
-        boolean swapped;
-        do {
-            swapped = false;
-            Node aux = first;
-            while (aux.next != null) {
-                // Compara el nodo actual con el siguiente
-                if (util.Utility.compare(aux.data, aux.next.data) > 0) {
-                    // Intercambia los datos de los nodos
-                    Object temp = aux.data;
-                    aux.data = aux.next.data;
-                    aux.next.data = temp;
-                    swapped = true;
-                }
-                aux = aux.next;
-            }
-        } while (swapped);
-
-
-    }
+        bubbleSort();
+}
 
     @Override
     public int indexOf(Object element) throws ListException {
@@ -275,4 +276,23 @@ public class SinglyLinkedList implements List{
         }
         return result;
     }
+
+    private void bubbleSort() {
+        boolean swapped;
+        do {
+            swapped = false;
+            Node aux = first;
+            while (aux.next != null) {
+                if (util.Utility.compare(aux.data, aux.next.data) > 0) {
+                    // Intercambia los datos
+                    Object temp = aux.data;
+                    aux.data = aux.next.data;
+                    aux.next.data = temp;
+                    swapped = true;
+                }
+                aux = aux.next;
+            }
+        } while (swapped);
+    }
+
 }
