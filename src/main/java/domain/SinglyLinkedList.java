@@ -122,13 +122,52 @@ public class SinglyLinkedList implements List{
 
     @Override
     public Object removeLast() throws ListException {
-        //TODO
-        return null;
+        if (isEmpty())
+            throw new ListException("Singly list is empty");
+
+        //CASO 1: SOLO HAY 1 ELEMENTO EN LA LSTA
+        if (first.next == null) {
+            Object data = first.data;
+            first = null; // La lista queda vacía
+            return data;
+        }
+
+        Node aux = first;
+        Node last = null;
+
+        while(aux.next!=null){ //SE SALE CUANDO AUX.NEXT == NULL
+            last = aux;
+            aux = aux.next;
+        }
+        last.next = null; //ELIMNA EL ULTIMO ELEMENTO
+
+        return last.data; //RETORNA EL ULTIMO ELEMENTO DE LA LISTA
     }
 
     @Override
     public void sort() throws ListException {
-        //TODO
+        if (isEmpty()) {
+            throw new ListException("Singly list is empty");
+        }
+
+        boolean swapped;
+        do {
+            swapped = false;
+            Node aux = first;
+            while (aux.next != null) {
+                // Compara el nodo actual con el siguiente
+                if (util.Utility.compare(aux.data, aux.next.data) > 0) {
+                    // Intercambia los datos de los nodos
+                    Object temp = aux.data;
+                    aux.data = aux.next.data;
+                    aux.next.data = temp;
+                    swapped = true;
+                }
+                aux = aux.next;
+            }
+        } while (swapped);
+
+
     }
 
     @Override
@@ -155,19 +194,53 @@ public class SinglyLinkedList implements List{
 
     @Override
     public Object getLast() throws ListException {
-        //TODO
-        return null;
+        if (isEmpty())
+            throw new ListException("Singly list is empty");
+
+        Node aux = first;
+        Node last = null;
+        while(aux!=null){
+            last = aux;
+            aux = aux.next;
+        }
+
+        return last.data;
     }
 
     @Override
     public Object getPrev(Object element) throws ListException {
-        //TODO
+       if (isEmpty())
+            throw new ListException("Singly list is empty");
+
+        Node current = first;
+        Node prev = null;
+
+        while(current!=null){
+            if (util.Utility.compare(current.data, element) == 0) {
+                return (prev != null) ? prev.data : null; //NUL SI ELEMENTO ESTA AL INICIO
+            }
+            prev = current;
+            current = current.next;
+        }
+
         return null;
     }
 
     @Override
     public Object getNext(Object element) throws ListException {
-        //TODO
+        if (isEmpty())
+            throw new ListException("Singly list is empty");
+
+        Node aux = first;
+
+        while(aux!=null){
+            if (util.Utility.compare(aux.data, element) == 0) {
+                return (aux.next != null) ? aux.next.data : null; // Si es el último nodo, retorna null
+            }
+            aux = aux.next;
+        }
+
+        //throw new ListException("Element not found in the list");
         return null;
     }
 
@@ -184,6 +257,8 @@ public class SinglyLinkedList implements List{
             i++;
             aux = aux.next; //lo movemos al sgte nodo
         }
+
+        //throw new ListException("Element not found in the list");
         return null;
     }
 
