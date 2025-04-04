@@ -67,11 +67,12 @@ public class SinglyLinkedList implements List{
     public void addFirst(Object element) {
         Node newNode = new Node(element);
 
-        if (isEmpty())
+        if (isEmpty()) {
             first = newNode;
-        else
+        } else {
             newNode.next = first;
-        first = newNode;
+            first = newNode;
+        }
 
     }
 
@@ -92,14 +93,14 @@ public class SinglyLinkedList implements List{
         }
 
         // Caso 2: Buscar la posición correcta para insertar
-        Node aux = first;
-        while (aux.next != null && util.Utility.compare(aux.next.data, element) < 0) {
-            aux = aux.next;
+        Node current = first;
+
+        while (current.next != null && util.Utility.compare(current.next.data, element) < 0) {
+            current = current.next;
         }
 
-        // Insertar el nodo
-        newNode.next = aux.next;
-        aux.next = newNode;
+        newNode.next = current.next;
+        current.next = newNode;
 
     }
 
