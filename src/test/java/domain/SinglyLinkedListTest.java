@@ -38,6 +38,12 @@ class SinglyLinkedListTest {
         list.add(new Student("10", "Pedro,", 24, "Heredia"));
 
         System.out.println(list);
+<<<<<<< HEAD
+        try {
+            System.out.println(list.contains(new Student("1")) );
+            System.out.println(list.contains(new Student("2")) );
+=======
+>>>>>>> 761dbc6348733c10c6be4bbd9f6db08c0512aae6
 
         try {
             //PROBAMOS CONTAINS
@@ -97,6 +103,9 @@ class SinglyLinkedListTest {
         }
 
     }
+<<<<<<< HEAD
+    void test2(){
+=======
 
     @Test
     void testSort() {
@@ -133,6 +142,7 @@ class SinglyLinkedListTest {
 
 
     public void test2(){
+>>>>>>> 761dbc6348733c10c6be4bbd9f6db08c0512aae6
         SinglyLinkedList list = new SinglyLinkedList();
         list.addFirst(20);
         list.addFirst(10);
