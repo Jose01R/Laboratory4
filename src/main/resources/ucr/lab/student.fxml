@@ -10,12 +10,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StudentController">
    <center>
       <AnchorPane prefHeight="615.0" prefWidth="804.0">
          <children>
-            <Pane layoutX="16.0" prefHeight="86.0" prefWidth="761.0" style="-fx-background-color: #fe6962;">
+            <Pane prefHeight="86.0" prefWidth="778.0" style="-fx-background-color: #fe6962;">
                <children>
                   <Label layoutX="90.0" layoutY="20.0" text="Students List (Singly Linked List)">
                      <font>
@@ -44,7 +43,7 @@
                         <Button layoutX="685.0" layoutY="17.0" mnemonicParsing="false" onAction="#containsOnAction" text="Contains" />
                         <Button layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#addSortedOnAction" text="Add Sorted" />
                         <Button layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#addFirstOnAction" text="Add First" />
-                        <Button mnemonicParsing="false" onAction="#addOnAction" text="Add" />
+                        <Button fx:id="addStudent" mnemonicParsing="false" onAction="#addOnAction" text="Add" />
                      </buttons>
                   </ButtonBar>
                   <ButtonBar layoutY="57.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="761.0">

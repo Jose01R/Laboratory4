@@ -52,12 +52,12 @@ public class Student implements Person{
 
     @Override
     public int getAge() {
-        return 0;
+        return this.age;
     }
 
     @Override
     public String getAddress() {
-        return "";
+        return this.address;
     }
 
     @Override
