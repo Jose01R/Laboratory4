@@ -11,6 +11,15 @@ public class Course {
         this.credits = credits;
     }
 
+//    public Course(String name) {
+//        this.name = name;
+//    }
+
+
+    public Course(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
@@ -37,10 +46,6 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Course{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", credits=" + credits +
-                '}';
+        return "\nCourse{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", credits=" + credits + '}';
     }
 }

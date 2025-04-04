@@ -1,5 +1,7 @@
 package util;
 
+import domain.Course;
+import domain.DoublyLinkedList;
 import domain.SinglyLinkedList;
 import domain.Student;
 
@@ -9,6 +11,8 @@ import java.util.Random;
 public class Utility {
     private static final Random random;
     private static SinglyLinkedList studentList;
+    private static DoublyLinkedList courseList;
+
 
     //constructor estatico, inicializador estatico
     static {
@@ -16,6 +20,7 @@ public class Utility {
         long seed = System.currentTimeMillis();
         random = new Random(seed);
         studentList = new SinglyLinkedList();
+        courseList = new DoublyLinkedList();
     }
 
     public static SinglyLinkedList getStudentList() {
@@ -24,6 +29,14 @@ public class Utility {
 
     public static void setStudentList(SinglyLinkedList studentList) {
         Utility.studentList = studentList;
+    }
+
+    public static DoublyLinkedList getCourseList() {
+        return courseList;
+    }
+
+    public static void setCourseList(DoublyLinkedList courseList) {
+        Utility.courseList = courseList;
     }
 
     public static int random(int bound){
@@ -77,6 +90,11 @@ public class Utility {
                 return st1.getId().compareTo(st2.getId()) < 0 ? -1
                         :  st1.getId().compareTo(st2.getId()) > 0 ? 1 : 0;
 
+            case "Course":
+                Course c1 = (Course) a; Course c2 = (Course) b;
+                return c1.getId().compareTo(c2.getId()) < 0 ? -1
+                        :  c1.getId().compareTo(c2.getId()) > 0 ? 1 : 0;
+
         }
         return 2; //Unknown
     }
@@ -86,6 +104,7 @@ public class Utility {
         if(a instanceof String && b instanceof String) return "String";
         if(a instanceof Character && b instanceof Character) return "Character";
         if(a instanceof Student && b instanceof Student) return "Student";
+        if(a instanceof Course && b instanceof Course) return "Course";
         return "Unknown";
     }
 }

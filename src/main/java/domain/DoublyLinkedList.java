@@ -12,6 +12,7 @@ public class DoublyLinkedList implements List {
     public int size() throws ListException {
         if(isEmpty())
             throw new ListException("Doubly Linked List is empty");
+
         int counter = 0; //contador de nodos
         Node aux = first; //aux para moverme por la lista y no perder el puntero al inicio
         while(aux!=null){
@@ -35,6 +36,7 @@ public class DoublyLinkedList implements List {
     public boolean contains(Object element) throws ListException {
         if(isEmpty())
             throw new ListException("Doubly Linked List is empty");
+
         Node aux = first;
         while(aux!=null){
             if(util.Utility.compare(aux.data, element)==0) return true; //ya lo encontro
@@ -130,7 +132,7 @@ public class DoublyLinkedList implements List {
     }
 
     @Override
-    public void sort() throws ListException {
+    public void sort() throws ListException {//me falta implementar
 
     }
 
@@ -138,6 +140,7 @@ public class DoublyLinkedList implements List {
     public int indexOf(Object element) throws ListException {
         if(isEmpty())
             throw new ListException("Doubly Linked List is empty");
+
         Node aux = first;
         int index = 1; //el primer indice de la lista es 1
         while(aux!=null){

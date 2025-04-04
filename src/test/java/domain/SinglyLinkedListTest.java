@@ -31,7 +31,8 @@ class SinglyLinkedListTest {
 
         System.out.println(list);
         try {
-            System.out.println(list.contains(new Student("3")) );
+            System.out.println(list.contains(new Student("1")) );
+            System.out.println(list.contains(new Student("2")) );
 
 
         } catch (ListException e) {
@@ -39,7 +40,7 @@ class SinglyLinkedListTest {
         }
 
     }
-    public void test2(){
+    void test2(){
         SinglyLinkedList list = new SinglyLinkedList();
         list.addFirst(20);
         list.addFirst(10);
