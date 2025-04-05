@@ -152,6 +152,22 @@ public class StudentController
         }
     }
 
+    @javafx.fxml.FXML
+    public void sortOnAction(ActionEvent actionEvent) {
+        try {
+            this.studentList.sort();
+            this.alert.setContentText("ORDERED LIST");
+            util.Utility.setStudentList(this.studentList); //actualizo la lista general
+            this.alert.setAlertType(Alert.AlertType.INFORMATION);
+            this.alert.showAndWait();
+            updateTableView();//actualiza el contenido del tableview
+            //disableButtonsIfListEmpty();
+        } catch (ListException e) {
+            alert.setHeaderText("Error : " + e.getMessage());
+            alert.show();
+        }
+    }
+
     public void updateTableView() throws ListException {
         this.studentTableview.getItems().clear(); //clear table
         this.studentList = util.Utility.getStudentList(); //cargo la lista
