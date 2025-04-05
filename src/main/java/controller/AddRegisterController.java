@@ -90,7 +90,7 @@ public class AddRegisterController {
     }
 
 
-    
+
     public void updateTableView() throws ListException {
         this.registrationTableview.getItems().clear(); //clear table
         this.studentList = util.Utility.getStudentList(); //cargo la lista
