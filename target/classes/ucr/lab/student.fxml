@@ -39,8 +39,8 @@
                <children>
                   <ButtonBar layoutX="1.0" layoutY="14.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="761.0">
                      <buttons>
-                        <Button layoutX="202.0" layoutY="17.0" mnemonicParsing="false" onAction="#sizeOnAction" text="Size" />
-                        <Button layoutX="685.0" layoutY="17.0" mnemonicParsing="false" onAction="#containsOnAction" text="Contains" />
+                        <Button fx:id="sizeButton" layoutX="202.0" layoutY="17.0" mnemonicParsing="false" onAction="#sizeOnAction" text="Size" />
+                        <Button fx:id="containsButton" layoutX="685.0" layoutY="17.0" mnemonicParsing="false" onAction="#containsOnAction" text="Contains" />
                         <Button layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#addSortedOnAction" text="Add Sorted" />
                         <Button layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#addFirstOnAction" text="Add First" />
                         <Button fx:id="addStudent" mnemonicParsing="false" onAction="#addOnAction" text="Add" />
@@ -51,11 +51,11 @@
                         <Button layoutX="202.0" layoutY="17.0" mnemonicParsing="false" onAction="#clearOnAction" text="Clear" />
                         <Button fx:id="removeFirstButton" layoutX="125.0" layoutY="17.0" mnemonicParsing="false" onAction="#removeFirstOnAction" text="Remove First" />
                         <Button fx:id="removeButton" layoutX="525.0" layoutY="17.0" mnemonicParsing="false" onAction="#removeOnAction" text="Remove" />
-                        <Button layoutX="104.0" layoutY="17.0" mnemonicParsing="false" onAction="#getLastOnAction" text="Get Last" />
+                        <Button fx:id="getLastButton" layoutX="104.0" layoutY="17.0" mnemonicParsing="false" onAction="#getLastOnAction" text="Get Last" />
                         <Button fx:id="getFirstButton" mnemonicParsing="false" onAction="#getFirstOnAction" text="Get First" />
                      </buttons>
                   </ButtonBar>
-                  <Button fx:id="sortButton" layoutX="250.0" layoutY="140.0" mnemonicParsing="false" onAction="#sortOnAction" prefHeight="25.0" prefWidth="110.0" text="Sort" />
+                  <Button fx:id="sortButton" layoutX="250.0" layoutY="140.0" mnemonicParsing="false" onAction="#addSortedOnAction" prefHeight="25.0" prefWidth="110.0" text="Sort" />
                </children>
             </Pane>
          </children>

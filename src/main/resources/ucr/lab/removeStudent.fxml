@@ -12,7 +12,7 @@
    <center>
       <AnchorPane prefHeight="400.0" prefWidth="655.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="71.0" prefWidth="600.0" style="-fx-background-color: #b91818;">
+            <Pane prefHeight="71.0" prefWidth="600.0" style="-fx-background-color: #636250;">
                <children>
                   <Text layoutX="153.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remove Student" wrappingWidth="273.3367004394531">
                      <font>
@@ -21,7 +21,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane layoutY="71.0" prefHeight="218.0" prefWidth="600.0">
+            <Pane layoutY="71.0" prefHeight="218.0" prefWidth="600.0" style="-fx-background-color: #96a71b;">
                <children>
                   <Text layoutX="31.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Id:" wrappingWidth="143.1800537109375">
                      <font>
@@ -37,7 +37,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane layoutY="277.0" prefHeight="123.0" prefWidth="600.0">
+            <Pane layoutY="277.0" prefHeight="123.0" prefWidth="600.0" style="-fx-background-color: #96a71b;">
                <children>
                   <Button layoutX="38.0" layoutY="20.0" mnemonicParsing="false" onAction="#removeOnAction" prefHeight="41.0" prefWidth="124.0" text="Remove" />
                   <Button layoutX="186.0" layoutY="20.0" mnemonicParsing="false" onAction="#clearOnAction" prefHeight="41.0" prefWidth="121.0" text="Clear" />

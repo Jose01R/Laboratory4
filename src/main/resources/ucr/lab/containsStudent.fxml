@@ -12,7 +12,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="79.0" prefWidth="600.0" style="-fx-background-color: #b91818;">
+            <Pane prefHeight="79.0" prefWidth="600.0" style="-fx-background-color: #636250;">
                <children>
                   <Text layoutX="220.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contains" wrappingWidth="159.81280517578125">
                      <font>
@@ -21,7 +21,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane layoutY="79.0" prefHeight="210.0" prefWidth="600.0">
+            <Pane layoutY="79.0" prefHeight="210.0" prefWidth="600.0" style="-fx-background-color: #96a71b;">
                <children>
                   <Text layoutX="36.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student id:" wrappingWidth="103.69293212890625">
                      <font>
@@ -49,7 +49,7 @@
                   <TextField fx:id="textFieldId" layoutX="252.0" layoutY="26.0" prefHeight="35.0" prefWidth="149.0" />
                </children>
             </Pane>
-            <Pane layoutY="292.0" prefHeight="110.0" prefWidth="600.0">
+            <Pane layoutY="285.0" prefHeight="117.0" prefWidth="600.0" style="-fx-background-color: #96a71b;">
                <children>
                   <Button layoutX="69.0" layoutY="39.0" mnemonicParsing="false" onAction="#containsOnAction" prefHeight="40.0" prefWidth="94.0" text="Contains" />
                   <Button layoutX="364.0" layoutY="39.0" mnemonicParsing="false" onAction="#closeOnAction" prefHeight="43.0" prefWidth="86.0" text="Close" />

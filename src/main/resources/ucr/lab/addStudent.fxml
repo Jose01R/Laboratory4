@@ -12,7 +12,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane layoutX="-1.0" prefHeight="70.0" prefWidth="607.0" style="-fx-background-color: #b91818;">
+            <Pane layoutX="-1.0" prefHeight="70.0" prefWidth="607.0" style="-fx-background-color: #636250;">
                <children>
                   <Text layoutX="190.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Student" wrappingWidth="206.591796875">
                      <font>
@@ -21,7 +21,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane layoutX="3.0" layoutY="70.0" prefHeight="236.0" prefWidth="600.0">
+            <Pane layoutX="3.0" layoutY="70.0" prefHeight="236.0" prefWidth="600.0" style="-fx-background-color: #96a71b;">
                <children>
                   <Text layoutX="36.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student id:" wrappingWidth="103.69293212890625">
                      <font>
@@ -49,7 +49,7 @@
                   <TextField fx:id="textFieldId" layoutX="252.0" layoutY="26.0" prefHeight="35.0" prefWidth="149.0" />
                </children>
             </Pane>
-            <Pane layoutX="3.0" layoutY="305.0" prefHeight="95.0" prefWidth="600.0">
+            <Pane layoutX="3.0" layoutY="305.0" prefHeight="95.0" prefWidth="600.0" style="-fx-background-color: #96a71b;">
                <children>
                   <Button layoutX="62.0" layoutY="24.0" mnemonicParsing="false" onAction="#addOnAction" prefHeight="47.0" prefWidth="71.0" text="Add" />
                   <Button layoutX="300.0" layoutY="24.0" mnemonicParsing="false" onAction="#closeOnAction" prefHeight="47.0" prefWidth="80.0" text="Close" />
