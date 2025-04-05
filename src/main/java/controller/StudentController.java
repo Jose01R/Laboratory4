@@ -123,7 +123,6 @@ public class StudentController
 
     @javafx.fxml.FXML
     public void addSortedOnAction(ActionEvent actionEvent) {
-        //TODO
         util.FXUtility.loadPage("ucr.lab.HelloApplication", "addSortedStudent.fxml", bp);
     }
 
