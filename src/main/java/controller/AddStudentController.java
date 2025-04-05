@@ -1,5 +1,6 @@
 package controller;
 
+import domain.ListException;
 import domain.SinglyLinkedList;
 import domain.Student;
 import javafx.event.ActionEvent;
@@ -36,18 +37,25 @@ public class AddStudentController
    @javafx.fxml.FXML
    void addOnAction(ActionEvent event) {
 
-
        String id= textFieldId.getText().trim();
        String name=textFieldName.getText().trim();
        int age=Integer.parseInt(textFieldAge.getText().trim());
        String address= textFieldAddress.getText().trim();
+
+       if (idAlreadyExists(id)) {
+           alert.setAlertType(Alert.AlertType.WARNING);
+           alert.setHeaderText("Ya existe un estudiante con ese ID.");
+           alert.show();
+           textFieldId.clear();
+           return;
+       }
+
        student= new Student(id,name,age,address);
        studentList.add(student);
        //Alerta al añadir
        alert.setAlertType(Alert.AlertType.INFORMATION);
        alert.setTitle("Add student");
        alert.setHeaderText("The student has been added");
-       alert.showAndWait();
        //Limpiar una vez se agregan
        textFieldAge.clear();
        textFieldName.clear();
@@ -80,5 +88,21 @@ public class AddStudentController
     void closeOnAction(ActionEvent event) {
         util.FXUtility.loadPage("ucr.lab.HelloApplication", "student.fxml", bp);
     }
+    public boolean idAlreadyExists(String id) {
+        try {
+            for (int i = 1; i <= studentList.size(); i++) {
+                Student s = (Student) studentList.getNode(i).data;
+                if (s.getId().equals(id)) {
+                    return true; // El ID ya existe
+                }
+            }
+        } catch (ListException e) {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error al validar ID: " + e.getMessage());
+            alert.show();
+        }
+        return false; // El ID no existe
+    }
+
 
 }

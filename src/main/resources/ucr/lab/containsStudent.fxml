@@ -21,35 +21,17 @@
                   </Text>
                </children>
             </Pane>
-            <Pane layoutY="79.0" prefHeight="210.0" prefWidth="600.0" style="-fx-background-color: #96a71b;">
+            <Pane layoutY="79.0" prefHeight="210.0" prefWidth="600.0" style="-fx-background-color: #589c2e;">
                <children>
-                  <Text layoutX="36.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student id:" wrappingWidth="103.69293212890625">
+                  <Text layoutX="63.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student id:" wrappingWidth="119.69293212890625">
                      <font>
-                        <Font name="Arial" size="21.0" />
+                        <Font name="Arial" size="25.0" />
                      </font>
                   </Text>
-                  <Text layoutX="36.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name (first and last):">
-                     <font>
-                        <Font name="Arial" size="21.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="36.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age:" wrappingWidth="52.7996826171875">
-                     <font>
-                        <Font name="Arial" size="21.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="35.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" wrappingWidth="105.10546875">
-                     <font>
-                        <Font name="Arial" size="21.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="textFieldAddress" layoutX="250.0" layoutY="168.0" prefHeight="35.0" prefWidth="149.0" />
-                  <TextField fx:id="textFieldAge" layoutX="252.0" layoutY="117.0" onKeyTyped="#ageOnKeyType" prefHeight="39.0" prefWidth="72.0" />
-                  <TextField fx:id="textFieldName" layoutX="252.0" layoutY="74.0" prefHeight="38.0" prefWidth="149.0" />
-                  <TextField fx:id="textFieldId" layoutX="252.0" layoutY="26.0" prefHeight="35.0" prefWidth="149.0" />
+                  <TextField fx:id="textFieldId" layoutX="206.0" layoutY="74.0" prefHeight="35.0" prefWidth="149.0" />
                </children>
             </Pane>
-            <Pane layoutY="285.0" prefHeight="117.0" prefWidth="600.0" style="-fx-background-color: #96a71b;">
+            <Pane layoutY="283.0" prefHeight="119.0" prefWidth="600.0" style="-fx-background-color: #589c2e;">
                <children>
                   <Button layoutX="69.0" layoutY="39.0" mnemonicParsing="false" onAction="#containsOnAction" prefHeight="40.0" prefWidth="94.0" text="Contains" />
                   <Button layoutX="364.0" layoutY="39.0" mnemonicParsing="false" onAction="#closeOnAction" prefHeight="43.0" prefWidth="86.0" text="Close" />

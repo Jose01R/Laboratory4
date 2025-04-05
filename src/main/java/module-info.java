@@ -3,6 +3,7 @@ module ucr.lab {
     requires javafx.fxml;
     requires java.desktop;
     requires javafx.base;
+    requires jdk.sctp;
 
     opens domain to javafx.base;
     opens ucr.lab to javafx.fxml;

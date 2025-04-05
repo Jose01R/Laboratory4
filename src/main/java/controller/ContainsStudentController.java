@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.nio.sctp.AbstractNotificationHandler;
 import domain.ListException;
 import domain.SinglyLinkedList;
 import domain.Student;
@@ -53,9 +54,6 @@ public class ContainsStudentController {
     @javafx.fxml.FXML
     void clearOnAction(ActionEvent event) {
         textFieldId.clear();
-        textFieldName.clear();
-        textFieldAge.clear();
-        textFieldAddress.clear();
     }
 
     @javafx.fxml.FXML
@@ -65,22 +63,26 @@ public class ContainsStudentController {
 
     @javafx.fxml.FXML
     void containsOnAction(ActionEvent event) {
+
         String id= textFieldId.getText().trim();
-        String name=textFieldName.getText().trim();
-        int age=Integer.parseInt(textFieldAge.getText().trim());
-        String address= textFieldAddress.getText().trim();
-        student= new Student(id,name,age,address);
+        student= new Student(id.trim());
+
         try {
-            if (studentList.contains(student)){
+            if (studentList.contains(student)) {
                 alert.setAlertType(Alert.AlertType.INFORMATION);
                 alert.setHeaderText("The student is on the list");
                 alert.show();
-            }else
+            } else {
+
+                alert.setAlertType(Alert.AlertType.WARNING);
                 alert.setHeaderText("The student is not in the list");
                 alert.show();
-
+            }
         } catch (ListException e) {
-            throw new RuntimeException(e);
+            alert.setHeaderText("Error "+e.getMessage());
+            alert.show();
         }
+
     }
+
 }
