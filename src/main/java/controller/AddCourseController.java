@@ -33,7 +33,6 @@ public class AddCourseController
     @javafx.fxml.FXML
     public void closeCourseOnAction(ActionEvent actionEvent) {
         util.FXUtility.loadPage("ucr.lab.HelloApplication", "course.fxml", bp);
-
     }
 
     @javafx.fxml.FXML
