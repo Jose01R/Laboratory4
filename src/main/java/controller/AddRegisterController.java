@@ -1,106 +1,161 @@
 package controller;
 
 import domain.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class AddRegisterController {
 
-
     @javafx.fxml.FXML
-    private ComboBox comboBoxStudent;
+    private BorderPane bp;
+
     @javafx.fxml.FXML
     private TextField textFieldRegisterId;
     @javafx.fxml.FXML
     private DatePicker datePickerRegister;
     @javafx.fxml.FXML
-    private BorderPane bp;
+    private ComboBox comboBoxCourse;
     @javafx.fxml.FXML
-    private ComboBox conboBoxCourse;
-    @javafx.fxml.FXML
-    private TableView<Student> registrationTableview; //establezco el tipo para el tableview
+    private ComboBox comboBoxStudent;
 
-    @javafx.fxml.FXML
-    private TableColumn<Student, String> idTableColumn;
-    @javafx.fxml.FXML
-    private TableColumn<Register, Date> dateTableColumn;
-    @javafx.fxml.FXML
-    private TableColumn<Student, String> idStudentTableColumn;
-    @javafx.fxml.FXML
-    private TableColumn<Student, String> nameStudentTableColumn;
-    @javafx.fxml.FXML
-    private TableColumn<Course, String> idCourseTableColumn;
-    @javafx.fxml.FXML
-    private TableColumn<Course, String> nameCourseTableColumn;
-    @javafx.fxml.FXML
-    private TableColumn<Course, String> creditsCourseTableColumn;
-
-    private SinglyLinkedList studentList;
     private DoublyLinkedList courseList;
+    private SinglyLinkedList studentList;
+    private Student student;
+    private Course course;
     private Alert alert; //para el manejo de alertas
+    private LocalDateTime registerDate;
+
+    private ObservableList<Register> registerObservableList;
+    private RegisterController registerController;  // Referencia al RegisterController
+
+    public void setRegisterController(RegisterController controller) {
+        this.registerController = controller;
+    }
 
     @javafx.fxml.FXML
     public void initialize() {
-        //cargamos la lista general
+        // Inicializar las listas
         this.studentList = util.Utility.getStudentList();
-        alert = util.FXUtility.alert("Registration List", "Display Student");
-        alert.setAlertType(Alert.AlertType.ERROR);
+        this.courseList = util.Utility.getCourseList();
+        this.registerObservableList = FXCollections.observableArrayList();  // Inicializamos la lista observable
 
-        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
-        dateTableColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
-        idStudentTableColumn.setCellValueFactory(new PropertyValueFactory<>("Student Id"));
-        nameStudentTableColumn.setCellValueFactory(new PropertyValueFactory<>("Student Name"));
-        idCourseTableColumn.setCellValueFactory(new PropertyValueFactory<>("Course Id"));
-        nameCourseTableColumn.setCellValueFactory(new PropertyValueFactory<>("Course Name"));
-        creditsCourseTableColumn.setCellValueFactory(new PropertyValueFactory<>("Credits"));
+        alert = util.FXUtility.alert("Register List", "Add Register");
 
-        try{
-            if(studentList!=null && !studentList.isEmpty() && courseList!=null && !courseList.isEmpty()){
-
-                for(int i=1; i<=studentList.size(); i++) {
-                    registrationTableview.getItems().add((Student) studentList.getNode(i).data);
-                }
-                for(int i=1; i<=courseList.size(); i++) {
-                  //  registrationTableview.getItems().add((Course) courseList.getNode(i).data);
-                }
-
-            }
-            //this.studentTableView.setItems(observableList);
-        }catch(ListException ex){
-            alert.setContentText("Student list is empty");
-            alert.showAndWait();
-        }
-
+        // Llamamos a los métodos para cargar los ComboBoxes
+        loadStudentComboBox();
+        loadCourseComboBox();
     }
 
-        @javafx.fxml.FXML
-    public void cleanSortedStudentOnAction(ActionEvent actionEvent) {
-    }
-
+    //METODO PARA GUARDAR HORA Y FECHA
     @javafx.fxml.FXML
-    public void addSortedStudentOnAction(ActionEvent actionEvent) {
-    }
+    private void onDateSelected(ActionEvent event) {
+        LocalDate selectedDate = datePickerRegister.getValue();
+        LocalTime currentTime = LocalTime.now();
 
-    @javafx.fxml.FXML
-    public void closeSortedStudentOnAction(ActionEvent actionEvent) {
-    }
-
-
-
-    public void updateTableView() throws ListException {
-        this.registrationTableview.getItems().clear(); //clear table
-        this.studentList = util.Utility.getStudentList(); //cargo la lista
-        if(studentList!=null && !studentList.isEmpty()){
-            for(int i=1; i<=studentList.size(); i++) {
-                this.registrationTableview.getItems().add((Student)studentList.getNode(i).data);
-            }
+        if (selectedDate != null) {
+            registerDate = LocalDateTime.of(selectedDate, currentTime);
+            //MENSAJE DEPURACION
+            System.out.println("Fecha y hora guardadas: " + registerDate);
         }
     }
 
+    @javafx.fxml.FXML
+    public void addRegisterOnAction(ActionEvent actionEvent) {
+        String id = textFieldRegisterId.getText().trim();
+        Student selectedStudent = (Student) comboBoxStudent.getValue();
+        Course selectedCourse = (Course) comboBoxCourse.getValue();
+
+        if (idAlreadyExists(id)) {
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setHeaderText("Ya existe un estudiante con ese ID.");
+            alert.show();
+            textFieldRegisterId.clear();
+            return;
+        }
+
+        // Crear el nuevo registro
+        Register newRegister = new Register(
+                Integer.parseInt(id),
+                registerDate,
+                selectedStudent.getId(),
+                selectedCourse.getId()
+        );
+
+        // Llamar a registerController para agregar el nuevo registro al TableView
+        if (registerController != null) {
+            registerController.addRegister(newRegister);
+        }
+
+        // Limpiar los campos después de agregar el registro
+        cleanRegisterOnAction(actionEvent);
+
+        // Mostrar una alerta de éxito
+        util.FXUtility.alert("Success", "Register added correctly").showAndWait();
+    }
+
+    @javafx.fxml.FXML
+    public void cleanRegisterOnAction(ActionEvent actionEvent) {
+        textFieldRegisterId.clear();
+        datePickerRegister.setValue(null);
+        comboBoxStudent.getSelectionModel().clearSelection();
+        comboBoxCourse.getSelectionModel().clearSelection();
+    }
+
+    @javafx.fxml.FXML
+    public void closeRegisterOnAction(ActionEvent actionEvent) {
+        util.FXUtility.loadPage("ucr.lab.HelloApplication", "register.fxml", bp);
+    }
+
+    public boolean idAlreadyExists(String id) {
+        for (Register register : registerObservableList) {
+            if (String.valueOf(register.getId()).equals(id)) {
+                return true; // El ID del registro ya existe
+            }
+        }
+        return false;
+    }
+
+    private void loadStudentComboBox() {
+        ObservableList<Student> observableStudents = FXCollections.observableArrayList();
+
+        try {
+            if (studentList != null && !studentList.isEmpty()) {
+                for (int i = 1; i <= studentList.size(); i++) {
+                    Student student = (Student) studentList.getNode(i).data;
+                    observableStudents.add(student);
+                }
+                comboBoxStudent.setItems(observableStudents);
+            }
+        } catch (ListException e) {
+            util.FXUtility.alert("ERROR", "No se pudo cargar la lista de estudiantes");
+        }
+    }
+
+
+    private void loadCourseComboBox() {
+        ObservableList<Course> observableCourses = FXCollections.observableArrayList();
+
+        try {
+            if (courseList != null && !courseList.isEmpty()) {
+                for (int i = 1; i <= courseList.size(); i++) {
+                    Course course = (Course) courseList.getNode(i).data;
+                    observableCourses.add(course);
+                }
+                comboBoxCourse.setItems(observableCourses);
+            }
+        } catch (ListException e) {
+            util.FXUtility.alert("ERROR", "No se pudo cargar la lista de cursos");
+        }
+    }
 
 
 }

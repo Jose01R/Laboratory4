@@ -28,12 +28,12 @@
                         <TableView fx:id="registrationTableview" layoutX="15.0" layoutY="14.0" prefHeight="350.0" prefWidth="761.0">
                             <columns>
                                 <TableColumn fx:id="idTableColumn" prefWidth="41.0" text="Id" />
-                                <TableColumn fx:id="nameTableColumn" prefWidth="108.0" text="Date" />
-                                <TableColumn fx:id="ageTableColumn" minWidth="8.0" prefWidth="115.0" text="Student ID" />
-                                <TableColumn fx:id="addressTableColumn" prefWidth="194.0" text="Student Name" />
-                        <TableColumn fx:id="addressTableColumn1" prefWidth="90.0" text="Course ID" />
-                        <TableColumn fx:id="addressTableColumn11" prefWidth="144.0" text="Course Name" />
-                        <TableColumn fx:id="addressTableColumn111" prefWidth="68.0" text="Credits" />
+                                <TableColumn fx:id="dateTableColumn" prefWidth="108.0" text="Date" />
+                                <TableColumn fx:id="idStudentTableColumn" minWidth="8.0" prefWidth="115.0" text="Student ID" />
+                                <TableColumn fx:id="nameStudentTableColumn" prefWidth="194.0" text="Student Name" />
+                        <TableColumn fx:id="idCourseTableColumn" prefWidth="90.0" text="Course ID" />
+                        <TableColumn fx:id="nameCourseTableColumn" prefWidth="144.0" text="Course Name" />
+                        <TableColumn fx:id="creditsTableColumn" prefWidth="68.0" text="Credits" />
                             </columns>
                         </TableView>
                     </children>
