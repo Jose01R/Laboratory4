@@ -72,11 +72,12 @@ class DoublyLinkedListTest {
         try {
             //prueba del metodo contains(objetc) listo
             System.out.println("\n");//para que en el panel de control haya un espacio
-            System.out.println(list.contains(new Course("IF-6201")) );
-            System.out.println(list.contains(new Course("IF-3001")) );
-            System.out.println(list.contains(new Course("IF-4001")) );
-            System.out.println(list.contains(new Course("IF-6100")) );
-            System.out.println("\n");//para que en el panel de control haya un espacio
+            System.out.println("¿Existe Informática Aplicada, Id=IF-6201? " +list.contains(new Course("IF-6201")) );
+            System.out.println("¿Existe Algoritmos y Estructuras de Datos, Id=IF-3001? " +list.contains(new Course("IF-3001")) );
+            System.out.println("¿Existe Sistemas Operativos, Id=IF-4001? " +list.contains(new Course("IF-4001")) );
+            System.out.println("¿Existe Análisis y Diseño de Sistemas, Id=IF-6100? " +list.contains(new Course("IF-6100")) );
+
+            System.out.println("\n");
 
             //prueba del metodo getNode(i) listo
             for (int i = 1; i <= list.size(); i++) {
@@ -89,8 +90,6 @@ class DoublyLinkedListTest {
             Course courseToSeach3 = new Course("IF-3000");
             Course courseToSeach4 = new Course("XS-0105");
             Course courseToSeach5 = new Course("IF-3100");
-
-
             System.out.println("\n");
             System.out.println("El curso Algoritmos y Estructuras de Datos, con Id=IF-3001 se encuentra en la posición: " + list.indexOf(courseToSeach1));
             System.out.println("El curso Análisis y Diseño de Sistemas, con con Id=IF-6100 se encuentra en la posicion: " + list.indexOf(courseToSeach2));
@@ -98,18 +97,11 @@ class DoublyLinkedListTest {
             System.out.println("El curso Estadísticas para Informáticos, conId=XS-0105 se encuentra en la posición: " + list.indexOf(courseToSeach4));
             System.out.println("El curso Lenguajes app Comerciales, con Id=IF-3100 se encuentra en la posición: " + list.indexOf(courseToSeach5));
 
-            //prueba de ordene la lista de cursos por nombre, con el metodo sort() no estoy seguro
-            System.out.println("\n");
-            System.out.println("The course list is sort the name courses");
-            list.sort();
-            System.out.println(list);
-
-            //prueba del suprimir los cursos con Id= IF-5000, IF-5100 listo
+            //prueba del suprimir "remove "los cursos con Id= IF-5000, IF-5100 listo
             Course deletedCourse1 = new Course("IF-5000");
             Course deletedCourse2 = new Course("IF-5100");
             System.out.println("\n");
             System.out.println("The course with ID selected they have been eliminated");
-
             if (list.contains(deletedCourse1)) {
                 list.remove(deletedCourse1);
                 System.out.println("The course with ID = [" + deletedCourse1.getId() + "] has been deleted");
@@ -121,6 +113,28 @@ class DoublyLinkedListTest {
             System.out.println("\n");
             System.out.println(list);
 
+            //PROBAMOS GET LAST Y GET PREV
+            System.out.println("\n");
+            System.out.println("Ultimo de la lista");
+            System.out.println(list.getLast());
+            System.out.println("\n");
+            System.out.println("Prev");
+            System.out.println(list.getPrev(courseToSeach3));
+            //PROBAMOS GET NEXT
+            System.out.println("\n");
+            System.out.println("Next");
+            System.out.println(list.getNext(courseToSeach3));
+
+            //PROBAMOS REMOVE LAST
+            System.out.println("\n");
+            System.out.println("Ultimo elemento: "+ list.removeLast());
+            System.out.println("\n" + list);
+
+            //prueba de ordene la lista de cursos por nombre, con el metodo sort() no estoy seguro
+            System.out.println("\n");
+            System.out.println("The course list is sort the name courses");
+            list.sort();
+            System.out.println(list);
 
         } catch (ListException e) {
             throw new RuntimeException(e);

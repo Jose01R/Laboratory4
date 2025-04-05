@@ -82,7 +82,24 @@ public class DoublyLinkedList implements List {
 
     @Override
     public void addInSortedList(Object element) {
+        Node newNode = new Node(element);
 
+        // Caso 1: La lista está vacía o el nuevo elemento es menor que el primero
+        if (isEmpty() || util.Utility.compare(element, first.data) < 0) {
+            newNode.next = first;
+            first = newNode;
+            return;
+        }
+
+        // Caso 2: Buscar la posición correcta para insertar
+        Node current = first;
+
+        while (current.next != null && util.Utility.compare(current.next.data, element) < 0) {
+            current = current.next;
+        }
+
+        newNode.next = current.next;
+        current.next = newNode;
     }
 
     @Override
@@ -118,9 +135,10 @@ public class DoublyLinkedList implements List {
     public Object removeFirst() throws ListException {
         if(isEmpty())
             throw new ListException("Doubly Linked List is empty");
+
         Object value = first.data;
         first = first.next; //movemos el apuntador al nodo sgte
-        //rompo el doble enlace
+        //rompo el doble enlace puede que deba quitarlo
         if(first!=null)
             first.prev = null;
         return value;
@@ -128,7 +146,26 @@ public class DoublyLinkedList implements List {
 
     @Override
     public Object removeLast() throws ListException {
-        return null;
+        if (isEmpty())
+            throw new ListException("Singly list is empty");
+
+        //CASO 1: SOLO HAY 1 ELEMENTO EN LA LSTA
+        if (first.next == null) {
+            Object data = first.data;
+            first = null; // La lista queda vacía
+            return data;
+        }
+
+        Node aux = first;
+        Node last = null;
+
+        while(aux.next!=null){ //SE SALE CUANDO AUX.NEXT == NULL
+            last = aux;
+            aux = aux.next;
+        }
+        last.next = null; //ELIMNA EL ULTIMO ELEMENTO
+
+        return last.data; //RETORNA EL ULTIMO ELEMENTO DE LA LISTA
     }
 
     @Override
@@ -136,23 +173,7 @@ public class DoublyLinkedList implements List {
         if(isEmpty())
             throw new ListException("Doubly Linked List is empty");
 
-        boolean swapped;
-        do {
-            swapped = false;
-            Node aux = first;
-            while (aux.next != null) {
-                // Compara el nodo actual con el siguiente
-                if (util.Utility.compare(aux.data, aux.next.data) > 0) {
-                    // Intercambia los datos de los nodos
-                    Object temp = aux.data;
-                    aux.data = aux.next.data;
-                    aux.next.data = temp;
-                    swapped = true;
-                }
-                aux = aux.next;
-            }
-        } while (swapped);
-
+        bubbleSort();
     }
 
     @Override
@@ -174,21 +195,57 @@ public class DoublyLinkedList implements List {
     public Object getFirst() throws ListException {
         if(isEmpty())
             throw new ListException("Doubly Linked List is empty");
+
         return first.data;
     }
 
     @Override
     public Object getLast() throws ListException {
-        return null;
-    }
+        if (isEmpty())
+            throw new ListException("Doubly list is empty");
+
+        Node aux = first;
+        Node last = null;
+        while(aux!=null){
+            last = aux;
+            aux = aux.next;
+        }
+
+        return last.data;    }
 
     @Override
     public Object getPrev(Object element) throws ListException {
-        return null;
-    }
+        if (isEmpty())
+            throw new ListException("Doubly list is empty");
+
+        Node current = first;
+        Node prev = null;
+
+        while(current!=null){
+            if (util.Utility.compare(current.data, element) == 0) {
+                return (prev != null) ? prev.data : null; //NUL SI ELEMENTO ESTA AL INICIO
+            }
+            prev = current;
+            current = current.next;
+        }
+
+        return null;    }
 
     @Override
     public Object getNext(Object element) throws ListException {
+        if (isEmpty())
+            throw new ListException("Singly list is empty");
+
+        Node aux = first;
+
+        while(aux!=null){
+            if (util.Utility.compare(aux.data, element) == 0) {
+                return (aux.next != null) ? aux.next.data : null; // Si es el último nodo, retorna null
+            }
+            aux = aux.next;
+        }
+
+        //throw new ListException("Element not found in the list");
         return null;
     }
 
@@ -219,4 +276,24 @@ public class DoublyLinkedList implements List {
         }
         return result;
     }
+
+    private void bubbleSort() {
+        boolean swapped;
+        do {
+            swapped = false;
+            Node aux = first;
+            while (aux.next != null) {
+                if (util.Utility.compare(aux.data, aux.next.data) > 0) {
+                    // Intercambia los datos
+                    Object temp = aux.data;
+                    aux.data = aux.next.data;
+                    aux.next.data = temp;
+                    swapped = true;
+                }
+                aux = aux.next;
+            }
+        } while (swapped);
+    }
+
+
 }

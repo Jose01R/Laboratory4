@@ -66,10 +66,22 @@ public class CourseController
 
     @javafx.fxml.FXML
     public void containsOnAction(ActionEvent actionEvent) {
+        util.FXUtility.loadPage("ucr.lab.HelloApplication", "containsCourse.fxml", bp);
     }
 
     @javafx.fxml.FXML
     public void sizeOnAction(ActionEvent actionEvent) {
+        try {
+            this.alert.setContentText("The number of students is : " + this.courseList.size());
+            util.Utility.setCourseList(this.courseList); //actualizo la lista general
+            this.alert.setAlertType(Alert.AlertType.INFORMATION);
+            this.alert.showAndWait();
+            updateTableView();//actualiza el contenido del tableview
+            //disableButtonsIfListEmpty();
+        } catch (ListException e) {
+            alert.setHeaderText("Error: " + e.getMessage());
+            alert.show();
+        }
     }
 
     @javafx.fxml.FXML
@@ -84,6 +96,7 @@ public class CourseController
 
     @javafx.fxml.FXML
     public void removeOnAction(ActionEvent actionEvent) {
+        util.FXUtility.loadPage("ucr.lab.HelloApplication", "removeCourse.fxml", bp);
     }
 
     @javafx.fxml.FXML
@@ -93,17 +106,50 @@ public class CourseController
 
     @javafx.fxml.FXML
     public void getFirstOnAction(ActionEvent actionEvent) {
+        //AGREGAR FORMATEO PARA SALIDA DEL ELEMENTO
+
+        try {
+            this.alert.setContentText("The first element is: " + this.courseList.getFirst());
+            util.Utility.setCourseList(this.courseList); //actualizo la lista general
+            this.alert.setAlertType(Alert.AlertType.INFORMATION);
+            this.alert.showAndWait();
+            updateTableView(); //actualiza el contenido del tableview
+            //disableButtonsIfListEmpty();
+        } catch (ListException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @javafx.fxml.FXML
     public void removeFirstOnAction(ActionEvent actionEvent) {
+        try {
+            this.courseList.removeFirst();
+            util.Utility.setCourseList(this.courseList); //actualizo la lista general
+            this.alert.setContentText("The first element was deleted");
+            this.alert.setAlertType(Alert.AlertType.INFORMATION);
+            this.alert.showAndWait();
+            updateTableView(); //actualiza el contenido del tableview
+        } catch (ListException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @javafx.fxml.FXML
     public void getLastOnAction(ActionEvent actionEvent) {
+        try {
+            this.alert.setContentText("The last element is: " + this.courseList.getLast());
+            util.Utility.setCourseList(this.courseList); //actualizo la lista general
+            this.alert.setAlertType(Alert.AlertType.INFORMATION);
+            this.alert.showAndWait();
+            updateTableView();//actualiza el contenido del tableview
+            //disableButtonsIfListEmpty();
+        } catch (ListException e) {
+            alert.setHeaderText("Error : " + e.getMessage());
+            alert.show();
+        }
     }
 
-    private void updateTableView() throws ListException {
+    public void updateTableView() throws ListException {
         this.courseTableview.getItems().clear(); //clear table
         this.courseList = util.Utility.getCourseList(); //cargo la lista
         if(courseList!=null && !courseList.isEmpty()){
