@@ -133,6 +133,25 @@ public class DoublyLinkedList implements List {
 
     @Override
     public void sort() throws ListException {//me falta implementar
+        if(isEmpty())
+            throw new ListException("Doubly Linked List is empty");
+
+        boolean swapped;
+        do {
+            swapped = false;
+            Node aux = first;
+            while (aux.next != null) {
+                // Compara el nodo actual con el siguiente
+                if (util.Utility.compare(aux.data, aux.next.data) > 0) {
+                    // Intercambia los datos de los nodos
+                    Object temp = aux.data;
+                    aux.data = aux.next.data;
+                    aux.next.data = temp;
+                    swapped = true;
+                }
+                aux = aux.next;
+            }
+        } while (swapped);
 
     }
 

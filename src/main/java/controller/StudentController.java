@@ -68,22 +68,10 @@ public class StudentController
 
     @javafx.fxml.FXML
     public void containsOnAction(ActionEvent actionEvent) {
-        util.FXUtility.loadPage("ucr.lab.HelloApplication", "containsStudent.fxml", bp);
     }
 
     @javafx.fxml.FXML
     public void sizeOnAction(ActionEvent actionEvent) {
-        try {
-            this.alert.setContentText("The number of students is : " + this.studentList.size());
-            util.Utility.setStudentList(this.studentList); //actualizo la lista general
-            this.alert.setAlertType(Alert.AlertType.INFORMATION);
-            this.alert.showAndWait();
-            updateTableView();//actualiza el contenido del tableview
-            //disableButtonsIfListEmpty();
-        } catch (ListException e) {
-            alert.setHeaderText("Error: " + e.getMessage());
-            alert.show();
-        }
     }
 
     @javafx.fxml.FXML
@@ -98,7 +86,6 @@ public class StudentController
 
     @javafx.fxml.FXML
     public void removeOnAction(ActionEvent actionEvent) {
-        util.FXUtility.loadPage("ucr.lab.HelloApplication", "removeStudent.fxml", bp);
     }
 
     @javafx.fxml.FXML
@@ -115,17 +102,6 @@ public class StudentController
 
     @javafx.fxml.FXML
     public void getLastOnAction(ActionEvent actionEvent) {
-        try {
-            this.alert.setContentText("The last element is: " + this.studentList.getLast());
-            util.Utility.setStudentList(this.studentList); //actualizo la lista general
-            this.alert.setAlertType(Alert.AlertType.INFORMATION);
-            this.alert.showAndWait();
-            updateTableView();//actualiza el contenido del tableview
-            //disableButtonsIfListEmpty();
-        } catch (ListException e) {
-            alert.setHeaderText("Error : " + e.getMessage());
-            alert.show();
-        }
     }
 
     private void updateTableView() throws ListException {

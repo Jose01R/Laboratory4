@@ -4,11 +4,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="380.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCourseController">
+<BorderPane fx:id="bp" prefHeight="380.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCourseController">
+   <center>
+   <AnchorPane prefHeight="615.0" prefWidth="804.0">
    <children>
       <Pane prefHeight="59.0" prefWidth="560.0" style="-fx-background-color: #928a37;">
          <children>
@@ -51,6 +53,7 @@
                   <Font name="Arial" size="18.0" />
                </font>
             </TextField>
+            <AnchorPane layoutX="-54.0" layoutY="-34.0" prefHeight="3.0" prefWidth="560.0" />
          </children>
       </Pane>
       <Pane layoutY="285.0" prefHeight="95.0" prefWidth="560.0" style="-fx-background-color: #aca34e;">
@@ -73,4 +76,6 @@
          </children>
       </Pane>
    </children>
-</AnchorPane>
+   </AnchorPane>
+   </center>
+</BorderPane>

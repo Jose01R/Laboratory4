@@ -10,20 +10,6 @@ import javafx.scene.layout.BorderPane;
 
 public class CourseController
 {
-//    @javafx.fxml.FXML
-//    private BorderPane bp;
-//    @javafx.fxml.FXML
-//    private TableView<Student> studentTableview; //establezco el tipo para el tableview
-//    @javafx.fxml.FXML
-//    private TableColumn<Student, String> nameTableColumn;
-//
-//    //defino la lista enlazada interna
-//    private DoublyLinkedList courseList;
-//    private Alert alert; //para el manejo de alertas
-//    @javafx.fxml.FXML
-//    private TableColumn creditsTableColumn;
-//    @javafx.fxml.FXML
-//    private TableColumn iDTableColumn;
 
     @javafx.fxml.FXML
     private BorderPane bp;
@@ -35,8 +21,6 @@ public class CourseController
     private TableColumn<Course, String> nameTableColumn;
     @javafx.fxml.FXML
     private TableColumn<Course, Integer> creditsTableColumn;
-//    @javafx.fxml.FXML
-//    private TableColumn<Course, String> addressTableColumn;
 
     //defino la lista enlazada interna
     private DoublyLinkedList courseList;
@@ -124,7 +108,7 @@ public class CourseController
         this.courseList = util.Utility.getCourseList(); //cargo la lista
         if(courseList!=null && !courseList.isEmpty()){
             for(int i=1; i<=courseList.size(); i++) {
-                this.courseTableview.getItems().add((Course) courseList.getNode(i).data);
+                this.courseTableview.getItems().add((Course)courseList.getNode(i).data);
             }
         }
     }

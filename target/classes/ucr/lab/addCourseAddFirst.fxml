@@ -7,7 +7,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="380.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCourseAddFirstController">
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane fx:id="bp" prefHeight="380.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCourseAddFirstController">
+   <center>
+      <AnchorPane prefHeight="615.0" prefWidth="804.0">
    <children>
       <Pane prefHeight="59.0" prefWidth="560.0" style="-fx-background-color: #928a37;">
          <children>
@@ -73,3 +76,5 @@
       </Pane>
    </children>
 </AnchorPane>
+        </center>
+        </BorderPane>
