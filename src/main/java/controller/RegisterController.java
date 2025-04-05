@@ -6,6 +6,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -15,14 +17,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class RegisterController
-{
+public class RegisterController {
     @javafx.fxml.FXML
     private BorderPane bp;
 
@@ -63,37 +65,43 @@ public class RegisterController
     private ObservableList<Register> registerObservableList;
     private DoublyLinkedList courseList;
     private SinglyLinkedList studentList;
-
+    private DoublyLinkedList registerList;
+    ;
+    private Alert alert;
 
     @javafx.fxml.FXML
     public void initialize() {
         registerObservableList = FXCollections.observableArrayList();
-        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        // Configuración de las columnas del TableView
+        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        // Asignar el valor de Student ID y Name
+        idStudentTableColumn.setCellValueFactory(cellData -> {
+            String studentId = cellData.getValue().getStudentId();
+            return new SimpleStringProperty(studentId);
+        });
 
-        // Formateo para la fecha
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        dateTableColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getRegisterDate().format(formatter))
-        );
-
-        // Obtener el ID del estudiante desde Register
-        idStudentTableColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStudentId()));
         nameStudentTableColumn.setCellValueFactory(cellData -> {
-            String studentName = null;
+            String studentId = cellData.getValue().getStudentId();
+            String studentName;
             try {
-                studentName = getStudentNameById(cellData.getValue().getStudentId());
+                studentName = getStudentNameById(studentId);
             } catch (ListException e) {
                 throw new RuntimeException(e);
             }
             return new SimpleStringProperty(studentName);
         });
 
-        // Obtener el ID del curso desde Register
-        idCourseTableColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCourseId()));
+        // Asignar el valor de Course ID y Name
+        idCourseTableColumn.setCellValueFactory(cellData -> {
+            String courseId = cellData.getValue().getCourseId();
+            return new SimpleStringProperty(courseId);
+        });
+
         nameCourseTableColumn.setCellValueFactory(cellData -> {
+            String courseId = cellData.getValue().getCourseId();
             String courseName = null;
             try {
-                courseName = getCourseNameById(cellData.getValue().getCourseId());
+                courseName = getCourseNameById(courseId);
             } catch (ListException e) {
                 throw new RuntimeException(e);
             }
@@ -101,28 +109,121 @@ public class RegisterController
         });
 
         creditsTableColumn.setCellValueFactory(cellData -> {
-            int credits = 0;
             try {
-                credits = getCreditsByCourseId(cellData.getValue().getCourseId());
+                return new SimpleIntegerProperty(getCreditsByCourseId(cellData.getValue().getCourseId())).asObject();
             } catch (ListException e) {
                 throw new RuntimeException(e);
             }
-            return new SimpleIntegerProperty(credits).asObject();  // Correcto para columnas Integer
         });
 
-        registrationTableview.setItems(registerObservableList);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        dateTableColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getRegisterDate().format(formatter))
+        );
+
+        try {
+            if (registerList != null && !registerList.isEmpty()) {
+                for (int i = 1; i <= courseList.size(); i++) {
+                    registrationTableview.getItems().add((Register) registerList.getNode(i).data);
+                }
+            }
+            //this.studentTableView.setItems(observableList);
+        } catch (ListException ex) {
+            alert.setContentText("Course list is empty");
+            alert.showAndWait();
+        }
+
+
     }
 
-    // Método para agregar un registro al TableView
-    public void addRegister(Register register) {
-        registerObservableList.add(register);
-        registrationTableview.setItems(registerObservableList);
-    }
 
     @javafx.fxml.FXML
     public void addOnAction(ActionEvent actionEvent) {
         util.FXUtility.loadPage("ucr.lab.HelloApplication", "addRegister.fxml", bp);
     }
+
+    @javafx.fxml.FXML
+    public void addFirstOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void clearOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void removeOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void addSortedOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void getFirstOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void removeFirstOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void getLastOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void containsOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void sortOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void sizeOnAction(ActionEvent actionEvent) {
+    }
+
+    /// ////////////////////////////////////////////
+
+    // Método para actualizar la lista de registros
+    public void updateRegisterList(DoublyLinkedList updatedRegisterList) {
+        this.registerList = updatedRegisterList;
+
+        // Depuración: Imprimir los registros para verificar que se están recibiendo correctamente
+        System.out.println("Actualizando la lista de registros...");
+        printRegisterList();
+
+        // Aquí podrías actualizar la TableView o cualquier otro componente que use registerList
+        ObservableList<Register> observableRegisters = FXCollections.observableArrayList();
+
+        try {
+            for (int i = 1; i <= registerList.size(); i++) {
+                Register register = (Register) registerList.getNode(i).data;
+                observableRegisters.add(register);
+            }
+            registrationTableview.setItems(observableRegisters);
+        } catch (ListException e) {
+            util.FXUtility.alert("ERROR", "No se pudo actualizar la lista de registros");
+        }
+    }
+
+    private void printRegisterList() {
+        try {
+            // Recorremos la lista de registros y los imprimimos
+            for (int i = 1; i <= registerList.size(); i++) {
+                Register register = (Register) registerList.getNode(i).data;
+                System.out.println("Registro " + i + ": ID = " + register.getId() +
+                        ", Fecha = " + register.getRegisterDate() +
+                        ", Student ID = " + register.getStudentId() +
+                        ", Course ID = " + register.getCourseId());
+            }
+        } catch (ListException e) {
+            System.out.println("Error al acceder a la lista de registros: " + e.getMessage());
+        }
+    }
+
+
+    /// ///////////////METODOS PARA OBTENER ELEMENTOS//////////////////////
+
 
     // Obtener el nombre del estudiante por ID
     private String getStudentNameById(String studentId) throws ListException {
@@ -181,43 +282,6 @@ public class RegisterController
         alert.showAndWait();
     }
 
-    @javafx.fxml.FXML
-    public void addFirstOnAction(ActionEvent actionEvent) {
-    }
 
-    @javafx.fxml.FXML
-    public void clearOnAction(ActionEvent actionEvent) {
-    }
 
-    @javafx.fxml.FXML
-    public void removeOnAction(ActionEvent actionEvent) {
-    }
-
-    @javafx.fxml.FXML
-    public void addSortedOnAction(ActionEvent actionEvent) {
-    }
-
-    @javafx.fxml.FXML
-    public void getFirstOnAction(ActionEvent actionEvent) {
-    }
-
-    @javafx.fxml.FXML
-    public void removeFirstOnAction(ActionEvent actionEvent) {
-    }
-
-    @javafx.fxml.FXML
-    public void getLastOnAction(ActionEvent actionEvent) {
-    }
-
-    @javafx.fxml.FXML
-    public void containsOnAction(ActionEvent actionEvent) {
-    }
-
-    @javafx.fxml.FXML
-    public void sortOnAction(ActionEvent actionEvent) {
-    }
-
-    @javafx.fxml.FXML
-    public void sizeOnAction(ActionEvent actionEvent) {
-    }
 }

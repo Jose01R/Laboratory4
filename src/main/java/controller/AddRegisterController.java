@@ -34,11 +34,15 @@ public class AddRegisterController {
     private Alert alert; //para el manejo de alertas
     private LocalDateTime registerDate;
 
-    private ObservableList<Register> registerObservableList;
     private RegisterController registerController;  // Referencia al RegisterController
+    private DoublyLinkedList registerList;
 
     public void setRegisterController(RegisterController controller) {
         this.registerController = controller;
+    }
+
+    public void setRegisterList(DoublyLinkedList registerList) {
+        this.registerList = registerList;
     }
 
     @javafx.fxml.FXML
@@ -46,7 +50,7 @@ public class AddRegisterController {
         // Inicializar las listas
         this.studentList = util.Utility.getStudentList();
         this.courseList = util.Utility.getCourseList();
-        this.registerObservableList = FXCollections.observableArrayList();  // Inicializamos la lista observable
+        this.registerList = util.Utility.getRegisterList()  ;
 
         alert = util.FXUtility.alert("Register List", "Add Register");
 
@@ -70,29 +74,30 @@ public class AddRegisterController {
 
     @javafx.fxml.FXML
     public void addRegisterOnAction(ActionEvent actionEvent) {
+
         String id = textFieldRegisterId.getText().trim();
         Student selectedStudent = (Student) comboBoxStudent.getValue();
         Course selectedCourse = (Course) comboBoxCourse.getValue();
 
-        if (idAlreadyExists(id)) {
-            alert.setAlertType(Alert.AlertType.WARNING);
-            alert.setHeaderText("Ya existe un estudiante con ese ID.");
-            alert.show();
-            textFieldRegisterId.clear();
+        // Verifica si todos los campos están completos
+        if (id.isEmpty() || selectedStudent == null || selectedCourse == null || registerDate == null) {
+            util.FXUtility.alert("ERROR", "Todos los campos deben ser completados.").showAndWait();
             return;
         }
 
         // Crear el nuevo registro
-        Register newRegister = new Register(
+        Register register = new Register(
                 Integer.parseInt(id),
                 registerDate,
                 selectedStudent.getId(),
                 selectedCourse.getId()
         );
 
-        // Llamar a registerController para agregar el nuevo registro al TableView
+        // Agregar el nuevo registro a la lista local registerList
+        registerList.add(register);
+
         if (registerController != null) {
-            registerController.addRegister(newRegister);
+            registerController.updateRegisterList(registerList);
         }
 
         // Limpiar los campos después de agregar el registro
@@ -100,6 +105,7 @@ public class AddRegisterController {
 
         // Mostrar una alerta de éxito
         util.FXUtility.alert("Success", "Register added correctly").showAndWait();
+
     }
 
     @javafx.fxml.FXML
@@ -115,14 +121,14 @@ public class AddRegisterController {
         util.FXUtility.loadPage("ucr.lab.HelloApplication", "register.fxml", bp);
     }
 
-    public boolean idAlreadyExists(String id) {
-        for (Register register : registerObservableList) {
-            if (String.valueOf(register.getId()).equals(id)) {
-                return true; // El ID del registro ya existe
-            }
-        }
-        return false;
-    }
+//    public boolean idAlreadyExists(String id) {
+//        for (Register register : registerObservableList) {
+//            if (String.valueOf(register.getId()).equals(id)) {
+//                return true; // El ID del registro ya existe
+//            }
+//        }
+//        return false;
+//    }
 
     private void loadStudentComboBox() {
         ObservableList<Student> observableStudents = FXCollections.observableArrayList();

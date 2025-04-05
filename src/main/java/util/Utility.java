@@ -12,6 +12,7 @@ public class Utility {
     private static final Random random;
     private static SinglyLinkedList studentList;
     private static DoublyLinkedList courseList;
+    private static DoublyLinkedList registerList;
 
 
     //constructor estatico, inicializador estatico
@@ -21,6 +22,8 @@ public class Utility {
         random = new Random(seed);
         studentList = new SinglyLinkedList();
         courseList = new DoublyLinkedList();
+        registerList = new DoublyLinkedList();
+
     }
 
     public static SinglyLinkedList getStudentList() {
@@ -38,6 +41,15 @@ public class Utility {
     public static void setCourseList(DoublyLinkedList courseList) {
         Utility.courseList = courseList;
     }
+
+    public static DoublyLinkedList getRegisterList() {
+        return registerList;
+    }
+
+    public static void setRegisterList(DoublyLinkedList courseList) {
+        Utility.registerList = registerList;
+    }
+
 
     public static int random(int bound) {
         //return (int)Math.floor(Math.random()*bound); //forma 1
