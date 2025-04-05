@@ -23,18 +23,12 @@
             </Pane>
             <Pane layoutY="71.0" prefHeight="218.0" prefWidth="600.0" style="-fx-background-color: #96a71b;">
                <children>
-                  <Text layoutX="31.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Id:" wrappingWidth="143.1800537109375">
+                  <Text layoutX="23.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Id:" wrappingWidth="143.1800537109375">
                      <font>
                         <Font name="Arial" size="25.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="textFieldId" layoutX="174.0" layoutY="33.0" prefHeight="35.0" prefWidth="170.0" />
-                  <TextField fx:id="textFieldName" layoutX="174.0" layoutY="90.0" prefHeight="39.0" prefWidth="170.0" />
-                  <Text layoutX="31.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="85.580078125">
-                     <font>
-                        <Font name="Arial" size="25.0" />
-                     </font>
-                  </Text>
+                  <TextField fx:id="textFieldId" layoutX="196.0" layoutY="77.0" prefHeight="35.0" prefWidth="170.0" />
                </children>
             </Pane>
             <Pane layoutY="277.0" prefHeight="123.0" prefWidth="600.0" style="-fx-background-color: #96a71b;">
