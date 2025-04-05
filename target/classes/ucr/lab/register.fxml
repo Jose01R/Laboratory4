@@ -61,7 +61,6 @@
                                 <Button fx:id="getFirstButton" mnemonicParsing="false" onAction="#getFirstOnAction" text="Get Prev" />
                             </buttons>
                         </ButtonBar>
-                        <Button fx:id="sortButton" layoutX="250.0" layoutY="140.0" mnemonicParsing="false" onAction="#sortOnAction" prefHeight="25.0" prefWidth="131.0" text="Sort" />
                     </children>
                 </Pane>
             </children>
