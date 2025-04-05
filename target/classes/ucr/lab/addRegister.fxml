@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddRegisterController">
+    <center>
+        <AnchorPane prefHeight="380.0" prefWidth="470.0">
+            <children>
+                <Pane prefHeight="59.0" prefWidth="560.0" style="-fx-background-color: #928a37;">
+                    <children>
+                        <Label layoutX="101.0" layoutY="12.0" text="Add Students (Add Sorted)">
+                            <font>
+                                <Font name="Arial" size="30.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </Pane>
+                <Pane layoutY="59.0" prefHeight="249.0" prefWidth="560.0" style="-fx-background-color: #c6bb66;">
+                    <children>
+                        <Label layoutX="45.0" layoutY="22.0" text="Register ID:">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="textFieldRegisterId" layoutX="220.0" layoutY="14.0" prefHeight="38.0" prefWidth="149.0">
+                            <font>
+                                <Font name="Arial" size="18.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="45.0" layoutY="63.0" text="Date:">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="45.0" layoutY="104.0" text="Select a student:">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="45.0" layoutY="147.0" text="Select a course:">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Label>
+                  <ComboBox fx:id="comboBoxStudent" layoutX="220.0" layoutY="102.0" prefHeight="25.0" prefWidth="259.0" />
+                  <ComboBox fx:id="conboBoxCourse" layoutX="220.0" layoutY="145.0" prefHeight="25.0" prefWidth="258.0" />
+                  <DatePicker fx:id="datePickerRegister" layoutX="220.0" layoutY="61.0" />
+                    </children>
+                </Pane>
+                <Pane layoutY="308.0" prefHeight="118.0" prefWidth="560.0" style="-fx-background-color: #aca34e;">
+                    <children>
+                        <Button layoutX="20.0" layoutY="45.0" mnemonicParsing="false" onAction="#addSortedStudentOnAction" prefHeight="59.0" prefWidth="134.0" text="Add">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="219.0" layoutY="45.0" mnemonicParsing="false" onAction="#cleanSortedStudentOnAction" prefHeight="59.0" prefWidth="134.0" text="Clean">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="406.0" layoutY="45.0" mnemonicParsing="false" onAction="#closeSortedStudentOnAction" prefHeight="59.0" prefWidth="134.0" text="Close">
+                            <font>
+                                <Font name="Arial Bold" size="18.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </Pane>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

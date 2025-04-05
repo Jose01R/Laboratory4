@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterController">
+    <center>
+        <AnchorPane prefHeight="674.0" prefWidth="782.0">
+            <children>
+                <Pane layoutX="10.0" prefHeight="86.0" prefWidth="790.0" style="-fx-background-color: #fe6962;">
+                    <children>
+                        <Label layoutX="21.0" layoutY="20.0" text="Course Registration (Doubly Linked List)">
+                            <font>
+                                <Font name="Arial" size="40.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </Pane>
+                <Pane layoutX="3.0" layoutY="86.0" prefHeight="367.0" prefWidth="798.0">
+                    <children>
+                        <TableView fx:id="registrationTableview" layoutX="15.0" layoutY="14.0" prefHeight="350.0" prefWidth="761.0">
+                            <columns>
+                                <TableColumn fx:id="idTableColumn" prefWidth="41.0" text="Id" />
+                                <TableColumn fx:id="nameTableColumn" prefWidth="108.0" text="Date" />
+                                <TableColumn fx:id="ageTableColumn" minWidth="8.0" prefWidth="115.0" text="Student ID" />
+                                <TableColumn fx:id="addressTableColumn" prefWidth="194.0" text="Student Name" />
+                        <TableColumn fx:id="addressTableColumn1" prefWidth="90.0" text="Course ID" />
+                        <TableColumn fx:id="addressTableColumn11" prefWidth="144.0" text="Course Name" />
+                        <TableColumn fx:id="addressTableColumn111" prefWidth="68.0" text="Credits" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </Pane>
+                <Pane layoutX="19.0" layoutY="462.0" prefHeight="204.0" prefWidth="761.0">
+                    <children>
+                        <ButtonBar layoutX="1.0" layoutY="14.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="761.0">
+                            <buttons>
+                                <Button fx:id="sizeButton" layoutX="202.0" layoutY="17.0" mnemonicParsing="false" onAction="#sizeOnAction" text="Size" />
+                                <Button fx:id="containsButton" layoutX="685.0" layoutY="17.0" mnemonicParsing="false" onAction="#containsOnAction" text="Contains" />
+                                <Button layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#addSortedOnAction" text="Sort by Student" />
+                                <Button layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#addFirstOnAction" text="Sort by Id" />
+                                <Button mnemonicParsing="false" onAction="#addOnAction" text="Add" />
+                            </buttons>
+                        </ButtonBar>
+                        <ButtonBar layoutY="77.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="761.0">
+                            <buttons>
+                                <Button layoutX="202.0" layoutY="17.0" mnemonicParsing="false" onAction="#clearOnAction" text="Clear" />
+                                <Button fx:id="removeFirstButton" layoutX="125.0" layoutY="17.0" mnemonicParsing="false" onAction="#removeFirstOnAction" text="Remove First">
+                           <font>
+                              <Font size="10.0" />
+                           </font></Button>
+                                <Button fx:id="removeButton" layoutX="525.0" layoutY="17.0" mnemonicParsing="false" onAction="#removeOnAction" text="Remove" />
+                                <Button fx:id="getLastButton" layoutX="104.0" layoutY="17.0" mnemonicParsing="false" onAction="#getLastOnAction" text="Get Next" />
+                                <Button fx:id="getFirstButton" mnemonicParsing="false" onAction="#getFirstOnAction" text="Get Prev" />
+                            </buttons>
+                        </ButtonBar>
+                        <Button fx:id="sortButton" layoutX="250.0" layoutY="140.0" mnemonicParsing="false" onAction="#sortOnAction" prefHeight="25.0" prefWidth="131.0" text="Sort" />
+                    </children>
+                </Pane>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>
