@@ -63,7 +63,7 @@ public class AddCourseAddSortedController
         }
 
         try {
-            int credits = Integer.parseInt(creditsText); // Convertir la edad a entero
+            int credits = Integer.parseInt(creditsText); // Convertir los creditos a un int
 
             // Crear un nuevo estudiante
             Course course = new Course(id, name, credits);

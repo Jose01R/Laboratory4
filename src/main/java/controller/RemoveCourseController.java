@@ -41,9 +41,9 @@ public class RemoveCourseController {
         String id = idTextField.getText().trim();
         try {
             for (int i = 1; i <= courseList.size(); i++) {
-                Student student = (Student) courseList.getNode(i).data;
-                if (util.Utility.compare(student.getId(),id)==0) {
-                    courseList.remove(student);
+                Course course = (Course) courseList.getNode(i).data;
+                if (util.Utility.compare(course.getId(),id)==0) {
+                    courseList.remove(course);
                     alert.setAlertType(Alert.AlertType.INFORMATION);
                     alert.setHeaderText("The course has been deleted.");
                     alert.show();

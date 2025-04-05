@@ -51,9 +51,9 @@ public class AddCourseController
         String name = textFieldName.getText().trim();
         int credits = Integer.parseInt(textFieldCredits.getText().trim());
 
-        Course course= new Course(id, name, credits);
-
+        Course course = new Course(id, name, credits);
         courseList.add(course);
+
         //Alerta al añadir
         alert.setAlertType(Alert.AlertType.INFORMATION);
         alert.setTitle("Add course");
@@ -71,9 +71,10 @@ public class AddCourseController
         String character = event.getCharacter();
         // Si no es un dígito, no se permite escribir
         if (!character.matches("\\d")) {
-            event.consume(); // Cancela el evento, no se escribe el caracter
+            event.consume();
+            alert.setAlertType(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("Debe ser un valor númerico");
+            alert.setHeaderText("Debe ser un valor numérico");
             alert.show();
             textFieldCredits.clear();
         }
