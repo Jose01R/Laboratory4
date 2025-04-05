@@ -4,6 +4,7 @@ import domain.ListException;
 import domain.SinglyLinkedList;
 import domain.Student;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
@@ -23,7 +24,7 @@ public class AddStudentAddSortedController
     private SinglyLinkedList studentList;
 
     private StudentController studentController;
-
+    private Alert alert;
     public void setStudentController(StudentController controller) {
         this.studentController = controller;
     }
@@ -31,6 +32,7 @@ public class AddStudentAddSortedController
     @javafx.fxml.FXML
     public void initialize() {
         this.studentList = util.Utility.getStudentList();
+        alert = util.FXUtility.alert("Student List", "Add Student");
     }
 
     @javafx.fxml.FXML
@@ -60,6 +62,13 @@ public class AddStudentAddSortedController
         try {
             int age = Integer.parseInt(ageText); // Convertir la edad a entero
 
+            if (idAlreadyExists(id.trim())) {
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setHeaderText("Ya existe un estudiante con ese ID.");
+                alert.show();
+                textFieldStudentId.clear();
+                return;
+            }
             // Crear un nuevo estudiante
             Student student = new Student(id, name, age, address);
 
@@ -85,5 +94,20 @@ public class AddStudentAddSortedController
     public void closeSortedStudentOnAction(ActionEvent actionEvent) {
         util.FXUtility.loadPage("ucr.lab.HelloApplication", "student.fxml", bp);
 
+    }
+    public boolean idAlreadyExists(String id) {
+        try {
+            for (int i = 1; i <= studentList.size(); i++) {
+                Student s = (Student) studentList.getNode(i).data;
+                if (s.getId().equals(id)) {
+                    return true; //El iD ya existe
+                }
+            }
+        } catch (ListException e) {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error al validar ID: " + e.getMessage());
+            alert.show();
+        }
+        return false; //El iD no existe
     }
 }

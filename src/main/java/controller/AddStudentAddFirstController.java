@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -27,7 +28,7 @@ public class AddStudentAddFirstController {
     private TextField textFieldAddress;
 
     private SinglyLinkedList studentList;
-
+    private Alert alert;
     private StudentController studentController;
 
     public void setStudentController(StudentController controller) {
@@ -37,6 +38,7 @@ public class AddStudentAddFirstController {
     @javafx.fxml.FXML
     public void initialize() {
         this.studentList = util.Utility.getStudentList();
+        alert = util.FXUtility.alert("Student List", "Add Student");
     }
 
     @javafx.fxml.FXML
@@ -48,6 +50,7 @@ public class AddStudentAddFirstController {
         String ageText = textFieldAge.getText().trim();
         String address = textFieldAddress.getText().trim();
 
+
         // Validar la entrada
         if (id.isEmpty() || name.isEmpty() || ageText.isEmpty() || address.isEmpty()) {
             util.FXUtility.alert("Error", "Fields are necessary.");
@@ -57,8 +60,16 @@ public class AddStudentAddFirstController {
         try {
             int age = Integer.parseInt(ageText); // Convertir la edad a entero
 
+            if (idAlreadyExists(id.trim())) {
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setHeaderText("Ya existe un estudiante con ese ID.");
+                alert.show();
+                textFieldStudentId.clear();
+                return;
+            }
             // Crear un nuevo estudiante
             Student student = new Student(id, name, age, address);
+
 
             // Agregarlo a la lista (esto asume que tienes el método addFirst)
             studentList.addFirst(student);
@@ -88,6 +99,21 @@ public class AddStudentAddFirstController {
     @javafx.fxml.FXML
     public void closeStudentOnAction(ActionEvent actionEvent) {
         util.FXUtility.loadPage("ucr.lab.HelloApplication", "student.fxml", bp);
+    }
+    public boolean idAlreadyExists(String id) {
+        try {
+            for (int i = 1; i <= studentList.size(); i++) {
+                Student s = (Student) studentList.getNode(i).data;
+                if (s.getId().equals(id.trim())) {
+                    return true; //El iD ya existe
+                }
+            }
+        } catch (ListException e) {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error al validar ID: " + e.getMessage());
+            alert.show();
+        }
+        return false; //El iD no existe
     }
 
 }

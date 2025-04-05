@@ -93,7 +93,7 @@ public class AddStudentController
             for (int i = 1; i <= studentList.size(); i++) {
                 Student s = (Student) studentList.getNode(i).data;
                 if (s.getId().equals(id)) {
-                    return true; // El ID ya existe
+                    return true; //El iD ya existe
                 }
             }
         } catch (ListException e) {
@@ -101,7 +101,7 @@ public class AddStudentController
             alert.setHeaderText("Error al validar ID: " + e.getMessage());
             alert.show();
         }
-        return false; // El ID no existe
+        return false; //El iD no existe
     }
 
 
