@@ -55,7 +55,7 @@
                         <Button fx:id="getFirstButton" mnemonicParsing="false" onAction="#getFirstOnAction" text="Get First" />
                      </buttons>
                   </ButtonBar>
-                  <Button fx:id="sortButton" layoutX="250.0" layoutY="140.0" mnemonicParsing="false" onAction="#addSortedOnAction" prefHeight="25.0" prefWidth="110.0" text="Sort" />
+                  <Button fx:id="sortButton" layoutX="250.0" layoutY="140.0" mnemonicParsing="false" onAction="#sortOnAction" prefHeight="25.0" prefWidth="110.0" text="Sort" />
                </children>
             </Pane>
          </children>

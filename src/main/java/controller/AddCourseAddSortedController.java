@@ -1,6 +1,9 @@
 package controller;
 
+import domain.Course;
 import domain.DoublyLinkedList;
+import domain.ListException;
+import domain.Student;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -20,6 +23,11 @@ public class AddCourseAddSortedController
     //defino la lista enlazada interna
     private DoublyLinkedList courseList;
     private Alert alert; //para el manejo de alertas
+    private CourseController courseController;
+
+    public void setCourseController(CourseController controller) {
+        this.courseController = controller;
+    }
 
     @javafx.fxml.FXML
     public void initialize() {
@@ -36,29 +44,43 @@ public class AddCourseAddSortedController
 
     @javafx.fxml.FXML
     public void cleanCourseOnAction(ActionEvent actionEvent) {
+        textFieldName.clear();
+        textFieldCourseId.clear();
+        textFieldCredits.clear();
     }
 
     @javafx.fxml.FXML
     public void addCourseOnAction(ActionEvent actionEvent) {
+        // Obtener los valores de los campos
+        String id = textFieldCourseId.getText().trim();
+        String name = textFieldName.getText().trim();
+        String creditsText = textFieldCourseId.getText().trim();
+
+        // Validar la entrada
+        if (id.isEmpty() || name.isEmpty() || creditsText.isEmpty()) {
+            util.FXUtility.alert("Error", "Todos los campos son obligatorios.").showAndWait();
+            return;
+        }
+
+        try {
+            int credits = Integer.parseInt(creditsText); // Convertir la edad a entero
+
+            // Crear un nuevo estudiante
+            Course course = new Course(id, name, credits);
+
+            // Agregarlo a la lista (esto asume que tienes el método addFirst)
+            courseList.addInSortedList(course);
+            util.Utility.setCourseList(courseList);
+
+            // Mostrar un mensaje de éxito
+            util.FXUtility.alert("Success", "Course added correctly.").showAndWait();
+
+            if (courseController != null) {
+                courseController.updateTableView();
+            }
+
+        } catch (NumberFormatException | ListException e) {
+            util.FXUtility.alert("ERROR", "Credits could be a valid number.").showAndWait();
+        }
     }
-
-
-
-//
-//    @javafx.fxml.FXML
-//    public void onKeyTypeAgeValidation(Event event) {
-//    }
-//
-//    @javafx.fxml.FXML
-//    public void addOnAction(ActionEvent actionEvent) {
-//    }
-//
-//    @javafx.fxml.FXML
-//    public void cleanOnAction(ActionEvent actionEvent) {
-//    }
-//
-//    @javafx.fxml.FXML
-//    public void closeOnAction(ActionEvent actionEvent) {
-//        util.FXUtility.loadPage("ucr.lab.HelloApplication", "student.fxml", bp);
-//    }
 }

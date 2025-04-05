@@ -48,7 +48,7 @@
                   <Font name="Arial Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="textFieldCredits" layoutX="152.0" layoutY="146.0" prefHeight="48.0" prefWidth="149.0">
+            <TextField fx:id="textFieldCredits" layoutX="152.0" layoutY="146.0" onKeyTyped="#creditsOnKeyType" prefHeight="48.0" prefWidth="149.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
