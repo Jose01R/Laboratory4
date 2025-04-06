@@ -63,7 +63,7 @@ public class AddCourseController
         alert.setAlertType(Alert.AlertType.INFORMATION);
         alert.setTitle("Add course");
         alert.setHeaderText("The course has been added");
-        alert.showAndWait();
+        //alert.showAndWait();
 
         //Limpiar una vez se agregan
         textFieldCourseId.clear();
