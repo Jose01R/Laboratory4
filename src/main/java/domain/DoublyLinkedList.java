@@ -229,12 +229,13 @@ public class DoublyLinkedList implements List {
             current = current.next;
         }
 
-        return null;    }
+        return null;
+    }
 
     @Override
     public Object getNext(Object element) throws ListException {
         if (isEmpty())
-            throw new ListException("Singly list is empty");
+            throw new ListException("Doubly list is empty");
 
         Node aux = first;
 

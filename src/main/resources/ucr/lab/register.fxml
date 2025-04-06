@@ -58,7 +58,7 @@
                            </font></Button>
                                 <Button fx:id="removeButton" layoutX="525.0" layoutY="17.0" mnemonicParsing="false" onAction="#removeOnAction" text="Remove" />
                                 <Button fx:id="getLastButton" layoutX="104.0" layoutY="17.0" mnemonicParsing="false" onAction="#getLastOnAction" text="Get Next" />
-                                <Button fx:id="getFirstButton" mnemonicParsing="false" onAction="#getFirstOnAction" text="Get Prev" />
+                                <Button fx:id="getPrevButton" mnemonicParsing="false" onAction="#getPrevOnAction" text="Get Prev" />
                             </buttons>
                         </ButtonBar>
                     </children>
