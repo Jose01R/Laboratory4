@@ -37,9 +37,10 @@ public class AddRegisterController {
     private RegisterController registerController;  // Referencia al RegisterController
     private DoublyLinkedList registerList;
 
-    public void setRegisterController(RegisterController controller) {
-        this.registerController = controller;
-    }
+    //    public void setRegisterController(RegisterController controller) {
+    //        this.registerController = controller;
+    //        System.out.println("RegisterController está asignado correctamente: " + controller);
+    //    }
 
     public void setRegisterList(DoublyLinkedList registerList) {
         this.registerList = registerList;
@@ -93,11 +94,17 @@ public class AddRegisterController {
                 selectedCourse.getId()
         );
 
+        System.out.println("Nuevo registro: " + register);
+
         // Agregar el nuevo registro a la lista local registerList
         registerList.add(register);
 
         if (registerController != null) {
-            registerController.updateRegisterList(registerList);
+            try {
+                registerController.updateTableView();
+            } catch (ListException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         // Limpiar los campos después de agregar el registro
