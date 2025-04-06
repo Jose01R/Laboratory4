@@ -301,25 +301,34 @@ public class DoublyLinkedList implements List {
         } while (swapped);
     }
 
-    private void bubbleSort() {
+    private void bubbleSort() throws ListException {
         boolean swapped;
         do {
             swapped = false;
             Node aux = first;
+            while (aux != null && aux.next != null) {
+                Register register1 = (Register) aux.data;
+                Register register2 = (Register) aux.next.data;
 
-            while (aux.next != null) {
-                if (util.Utility.compare(aux.data, aux.next.data) > 0) {
-                    // Intercambia los nodos
+                // Comparar por el nombre del estudiante en los registros
+                String studentName1 = util.Utility.getStudentNameById(register1.getStudentId());
+                String studentName2 = util.Utility.getStudentNameById(register2.getStudentId());
+
+                // Comparar los nombres
+                if (studentName1.compareTo(studentName2) > 0) {
+                    // Intercambiar los nodos
                     Object temp = aux.data;
                     aux.data = aux.next.data;
                     aux.next.data = temp;
 
                     swapped = true;
                 }
+
                 aux = aux.next;
             }
-        } while (swapped);
-    }
+        } while (swapped); // Continuar hasta que no haya intercambios
 
+
+    }
 
 }
