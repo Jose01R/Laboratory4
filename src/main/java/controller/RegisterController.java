@@ -70,6 +70,8 @@ public class RegisterController {
 
     @javafx.fxml.FXML
     public void initialize() {
+        this.studentList = util.Utility.getStudentList();  // Cargar lista de estudiantes
+        this.courseList = util.Utility.getCourseList();
         this.registerList = util.Utility.getRegisterList();
         registerObservableList = FXCollections.observableArrayList();
 
