@@ -123,7 +123,10 @@ public class Utility {
                 String name1 = (String) b;
                 return course.getName().compareTo(name1) < 0 ? -1
                         : course.getName().compareTo(name1) > 0 ? 1 : 0;
-
+            case "Register":
+                domain.Register r1 = (domain.Register) a;
+                domain.Register r2 = (domain.Register) b;
+                return Integer.compare(r1.getId(), r2.getId());
     }
         return 2; //Unknown
 }
@@ -136,6 +139,7 @@ public class Utility {
         if(a instanceof Student && b instanceof String) return "StudentByName";
         if(a instanceof Course && b instanceof Course) return "Course";
         if(a instanceof Course && b instanceof String) return "CourseByName";
+        if(a instanceof domain.Register && b instanceof domain.Register) return "Register";
 
 
         return "Unknown";

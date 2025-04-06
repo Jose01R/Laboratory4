@@ -44,8 +44,6 @@ public class RegisterController {
     private Button removeFirstButton;
     @javafx.fxml.FXML
     private Button removeButton;
-    @javafx.fxml.FXML
-    private Button sortButton;
 
     @javafx.fxml.FXML
     private TableColumn<Register, Integer> idTableColumn;
@@ -177,7 +175,7 @@ public class RegisterController {
     @javafx.fxml.FXML
     public void addSortedOnAction(ActionEvent actionEvent) {}
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void getFirstOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
@@ -189,7 +187,7 @@ public class RegisterController {
     @javafx.fxml.FXML
     public void containsOnAction(ActionEvent actionEvent) {}
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void sortOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
@@ -209,6 +207,53 @@ public class RegisterController {
             showError("Error", "Failed to update the table view.");
         }
     }
+
+    @javafx.fxml.FXML
+    public void getPrevOnAction(ActionEvent actionEvent) {
+        try {
+
+            // Asegurarse de que la alerta esté inicializada
+            if (alert == null) {
+                alert = new Alert(Alert.AlertType.INFORMATION);
+            }
+
+            // Obtener el registro seleccionado
+            Register selectedRegister = registrationTableview.getSelectionModel().getSelectedItem();
+
+            if (selectedRegister != null) {
+                // Debug: Verificar el tipo del registro seleccionado
+                System.out.println("Selected Register: " + selectedRegister);
+
+                // Llamar al método getPrev pasando el registro seleccionado
+                Object prevRegister = this.registerList.getPrev(selectedRegister);
+
+                // Verificar si el registro previo fue encontrado
+                if (prevRegister != null) {
+                    System.out.println("Previous Register: " + prevRegister);
+                    alert.setContentText("Previous element: " + prevRegister.toString());
+                } else {
+                    System.out.println("No previous element found.");
+                    alert.setContentText("No previous element found.");
+                }
+            } else {
+                System.out.println("No register selected.");
+                alert.setContentText("No register selected.");
+            }
+
+            // Mostrar la alerta
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.showAndWait();
+
+            // Actualizar la tabla después de la operación
+            updateTableView();
+
+        } catch (ListException e) {
+            showError("Error", "Failed to retrieve the previous element.");
+        }
+
+
+    }
+
 
     // Método para actualizar la lista de registros
     public void updateTableView() throws ListException {
@@ -272,4 +317,6 @@ public class RegisterController {
             alert.showAndWait();
         });
     }
+
+
 }
