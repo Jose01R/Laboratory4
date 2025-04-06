@@ -65,7 +65,7 @@ public class AddCourseAddFirstController
         try {
             int credits = Integer.parseInt(creditsText); // Convertir la edad a entero
 
-            // Crear un nuevo estudiante
+            // Crear un nuevo curso
             Course course = new Course(id, name, credits);
 
             // Agregarlo a la lista (esto asume que tienes el método addFirst)
