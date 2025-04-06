@@ -44,7 +44,7 @@
                             <buttons>
                                 <Button fx:id="sizeButton" layoutX="202.0" layoutY="17.0" mnemonicParsing="false" onAction="#sizeOnAction" text="Size" />
                                 <Button fx:id="containsButton" layoutX="685.0" layoutY="17.0" mnemonicParsing="false" onAction="#containsOnAction" text="Contains" />
-                                <Button layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#sortByStudentOnAction" text="Sort by Student" />
+                                <Button layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#addSortedOnAction" text="Sort by Student" />
                                 <Button layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#addFirstOnAction" text="Sort by Id" />
                                 <Button mnemonicParsing="false" onAction="#addOnAction" text="Add" />
                             </buttons>
@@ -57,7 +57,7 @@
                               <Font size="10.0" />
                            </font></Button>
                                 <Button fx:id="removeButton" layoutX="525.0" layoutY="17.0" mnemonicParsing="false" onAction="#removeOnAction" text="Remove" />
-                                <Button fx:id="getLastButton" layoutX="104.0" layoutY="17.0" mnemonicParsing="false" onAction="#getNextOnAction" text="Get Next" />
+                                <Button fx:id="getLastButton" layoutX="104.0" layoutY="17.0" mnemonicParsing="false" onAction="#getLastOnAction" text="Get Next" />
                                 <Button fx:id="getFirstButton" mnemonicParsing="false" onAction="#getFirstOnAction" text="Get Prev" />
                             </buttons>
                         </ButtonBar>
