@@ -1,11 +1,16 @@
 package domain;
 
+import util.Utility;
+
 public class DoublyLinkedList implements List {
     private Node first; //apuntador al inicio de la lista
+    private Node last; //apuntador al inicio de la lista
 
     //Constructor
     public DoublyLinkedList(){
+
         this.first = null;
+        this.last = null;
     }
 
     @Override
@@ -39,7 +44,7 @@ public class DoublyLinkedList implements List {
 
         Node aux = first;
         while(aux!=null){
-            if(util.Utility.compare(aux.data, element)==0) return true; //ya lo encontro
+            if(Utility.compare(aux.data, element)==0) return true; //ya lo encontro
             aux = aux.next; //muevo aux al nodo sgte
         }
         return false; //significa que no encontro el elemento
@@ -85,7 +90,7 @@ public class DoublyLinkedList implements List {
         Node newNode = new Node(element);
 
         // Caso 1: La lista está vacía o el nuevo elemento es menor que el primero
-        if (isEmpty() || util.Utility.compare(element, first.data) < 0) {
+        if (isEmpty() || Utility.compare(element, first.data) < 0) {
             newNode.next = first;
             first = newNode;
             return;
@@ -94,7 +99,7 @@ public class DoublyLinkedList implements List {
         // Caso 2: Buscar la posición correcta para insertar
         Node current = first;
 
-        while (current.next != null && util.Utility.compare(current.next.data, element) < 0) {
+        while (current.next != null && Utility.compare(current.next.data, element) < 0) {
             current = current.next;
         }
 
@@ -104,32 +109,48 @@ public class DoublyLinkedList implements List {
 
     @Override
     public void remove(Object element) throws ListException {
-        if(isEmpty())
+        if (isEmpty()) {
             throw new ListException("Doubly Linked List is empty");
-        //Caso 1: El elemento a suprimir es el primero de la lista
-        if(util.Utility.compare(first.data, element)==0) {
-            first = first.next;
-            first.prev = null; //actualizo el enlace al nodo anteior
         }
-        //Caso 2. El elemento puede estar en el medio o al final
-        else{
-            Node prev = first; //nodo anterior
-            Node aux = first.next; //nodo sgte
-            while(aux!=null && !(util.Utility.compare(aux.data, element)==0)){
+
+        // Caso 1: El elemento a suprimir es el primero de la lista
+        if (Utility.compare(first.data, element) == 0) {
+            if (first == this.last) {
+                // Si la lista tiene un solo nodo
+                first = last = null;
+            } else {
+                first = first.next;
+                if (first != null) {
+                    first.prev = null; // Actualizo el enlace al nodo anterior
+                }
+            }
+        }
+        // Caso 2: El elemento puede estar en el medio o al final
+        else {
+            Node prev = first; // Nodo anterior
+            Node aux = first.next; // Nodo siguiente
+
+            while (aux != null && Utility.compare(aux.data, element) != 0) {
                 prev = aux;
                 aux = aux.next;
             }
-            //se sale del while cuanda alcanza nulo
-            //o cuando encuentra el elemento
-            if(aux!=null && util.Utility.compare(aux.data, element)==0){
-                //debo desenlazar  el nodo
-                prev.next = aux.next;
-                //mantengo el doble enlace
-                if(aux.next!=null)
-                    aux.next.prev = prev;
+
+            // Si encuentra el elemento a eliminar
+            if (aux != null && Utility.compare(aux.data, element) == 0) {
+                // Caso 1: El nodo a eliminar es el último
+                if (aux == last) {
+                    last = prev;  // Actualizo el último nodo
+                    last.next = null; // Elimino la referencia al siguiente nodo
+                } else {
+                    prev.next = aux.next;
+                    if (aux.next != null) {
+                        aux.next.prev = prev;
+                    }
+                }
             }
         }
     }
+
 
     @Override
     public Object removeFirst() throws ListException {
@@ -169,7 +190,7 @@ public class DoublyLinkedList implements List {
     }
 
     @Override
-    public void sort() throws ListException {//me falta implementar
+    public void sort() throws ListException {
         if(isEmpty())
             throw new ListException("Doubly Linked List is empty");
 
@@ -184,7 +205,7 @@ public class DoublyLinkedList implements List {
         Node aux = first;
         int index = 1; //el primer indice de la lista es 1
         while(aux!=null){
-            if(util.Utility.compare(aux.data, element)==0) return index;
+            if(Utility.compare(aux.data, element)==0) return index;
             index++;
             aux = aux.next;
         }
@@ -222,24 +243,25 @@ public class DoublyLinkedList implements List {
         Node prev = null;
 
         while(current!=null){
-            if (util.Utility.compare(current.data, element) == 0) {
+            if (Utility.compare(current.data, element) == 0) {
                 return (prev != null) ? prev.data : null; //NUL SI ELEMENTO ESTA AL INICIO
             }
             prev = current;
             current = current.next;
         }
 
-        return null;    }
+        return null;
+    }
 
     @Override
     public Object getNext(Object element) throws ListException {
         if (isEmpty())
-            throw new ListException("Singly list is empty");
+            throw new ListException("Doubly list is empty");
 
         Node aux = first;
 
         while(aux!=null){
-            if (util.Utility.compare(aux.data, element) == 0) {
+            if (Utility.compare(aux.data, element) == 0) {
                 return (aux.next != null) ? aux.next.data : null; // Si es el último nodo, retorna null
             }
             aux = aux.next;
@@ -256,7 +278,7 @@ public class DoublyLinkedList implements List {
         Node aux = first;
         int i = 1; //posicion del primer nodo
         while(aux!=null){
-            if(util.Utility.compare(i, index)==0){
+            if(Utility.compare(i, index)==0){
                 return aux;
             }
             i++;
@@ -301,34 +323,25 @@ public class DoublyLinkedList implements List {
         } while (swapped);
     }
 
-    private void bubbleSort() throws ListException {
+    private void bubbleSort() {
         boolean swapped;
         do {
             swapped = false;
             Node aux = first;
-            while (aux != null && aux.next != null) {
-                Register register1 = (Register) aux.data;
-                Register register2 = (Register) aux.next.data;
 
-                // Comparar por el nombre del estudiante en los registros
-                String studentName1 = util.Utility.getStudentNameById(register1.getStudentId());
-                String studentName2 = util.Utility.getStudentNameById(register2.getStudentId());
-
-                // Comparar los nombres
-                if (studentName1.compareTo(studentName2) > 0) {
-                    // Intercambiar los nodos
+            while (aux.next != null) {
+                if (Utility.compare(aux.data, aux.next.data) > 0) {
+                    // Intercambia los nodos
                     Object temp = aux.data;
                     aux.data = aux.next.data;
                     aux.next.data = temp;
 
                     swapped = true;
                 }
-
                 aux = aux.next;
             }
-        } while (swapped); // Continuar hasta que no haya intercambios
-
-
+        } while (swapped);
     }
+
 
 }
