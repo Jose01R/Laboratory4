@@ -118,11 +118,11 @@ public class Utility {
                 return student.getName().compareTo(name) < 0 ? -1
                         : student.getName().compareTo(name) > 0 ? 1 : 0;
 
-//            case "CourseByName":
-//                Course course = (Course) a;
-//                String name1 = (String) b;
-//                return course.getName().compareTo(name1) < 0 ? -1
-//                        : course.getName().compareTo(name1) > 0 ? 1 : 0;
+            case "CourseByName":
+                Course course = (Course) a;
+                String name1 = (String) b;
+                return course.getName().compareTo(name1) < 0 ? -1
+                        : course.getName().compareTo(name1) > 0 ? 1 : 0;
 
     }
         return 2; //Unknown
@@ -135,7 +135,7 @@ public class Utility {
         if(a instanceof Student && b instanceof Student) return "Student";
         if(a instanceof Student && b instanceof String) return "StudentByName";
         if(a instanceof Course && b instanceof Course) return "Course";
-//        if(a instanceof Course && b instanceof String) return "CourseByName";
+        if(a instanceof Course && b instanceof String) return "CourseByName";
 
 
         return "Unknown";

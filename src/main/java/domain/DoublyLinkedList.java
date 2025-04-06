@@ -277,17 +277,43 @@ public class DoublyLinkedList implements List {
         return result;
     }
 
+    public void sortByName() {
+        boolean swapped;
+        do {
+            swapped = false;
+            Node aux = first;
+            while (aux != null && aux.next != null) {
+                // Comparar por nombre
+                //Se castea a Course para obtener nombre (getName)
+                Course course1 = (Course) aux.data;
+                Course course2 = (Course) aux.next.data;
+
+                if (course1.getName().compareTo(course2.getName()) > 0) {
+                    // Intercambiar los nodos
+                    Object temp = aux.data;
+                    aux.data = aux.next.data;
+                    aux.next.data = temp;
+
+                    swapped = true;
+                }
+                aux = aux.next;
+            }
+        } while (swapped);
+    }
+
     private void bubbleSort() {
         boolean swapped;
         do {
             swapped = false;
             Node aux = first;
+
             while (aux.next != null) {
                 if (util.Utility.compare(aux.data, aux.next.data) > 0) {
-                    // Intercambia los datos
+                    // Intercambia los nodos
                     Object temp = aux.data;
                     aux.data = aux.next.data;
                     aux.next.data = temp;
+
                     swapped = true;
                 }
                 aux = aux.next;

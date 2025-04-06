@@ -115,7 +115,7 @@ class DoublyLinkedListTest {
 
             //PROBAMOS GET LAST Y GET PREV
             System.out.println("\n");
-            System.out.println("Ultimo de la lista");
+            System.out.println("Last element of list");
             System.out.println(list.getLast());
             System.out.println("\n");
             System.out.println("Prev");
@@ -127,14 +127,21 @@ class DoublyLinkedListTest {
 
             //PROBAMOS REMOVE LAST
             System.out.println("\n");
-            System.out.println("Ultimo elemento: "+ list.removeLast());
+            System.out.println("Last element: "+ list.removeLast());
             System.out.println("\n" + list);
 
-            //prueba de ordene la lista de cursos por nombre, con el metodo sort() no estoy seguro
+            //PROBAMOS SORT
+            //ORDENAR CURSOS POR ID
             System.out.println("\n");
-            System.out.println("The course list is sort the name courses");
             list.sort();
-            System.out.println(list);
+            System.out.println("List sorted by ID:\n" + list);
+
+            //ORDENAR CURSOS POR NOMBRE
+            System.out.println("\n");
+            list.sortByName();
+            System.out.println("List sorted by name:\n" + list);
+
+
 
         } catch (ListException e) {
             throw new RuntimeException(e);
