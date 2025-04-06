@@ -146,24 +146,25 @@ public class RegisterController {
     @javafx.fxml.FXML
     public void sortByIdOnAction(ActionEvent actionEvent) {
         try {
-            // Ordenar la lista principal
-            this.registerList.sort(); // Asegúrate de que este método ordena por ID
-
-            // Actualiza la lista global (por si se usa en otros lados)
-            util.Utility.setRegisterList(this.registerList);
-
-            // Actualiza la tabla
-            registrationTableview.setItems(registerObservableList);
-
             // Mostrar alerta
             if (alert == null) {
                 alert = new Alert(Alert.AlertType.INFORMATION);
             }
+
+            // Ordenar la lista principal
+            this.registerList.sort(); // Asegúrate de que este método ordena por ID
+            // Actualiza la lista global (por si se usa en otros lados)
+            util.Utility.setRegisterList(this.registerList);
+            // Actualiza la tabla
+            registrationTableview.setItems(registerObservableList);
+
             alert.setAlertType(Alert.AlertType.INFORMATION);
             alert.setTitle("Sorted");
             alert.setHeaderText(null);
             alert.setContentText("Registers sorted by ID successfully.");
             alert.showAndWait();
+
+            updateTableView();
 
         } catch (ListException e) {
             showError("Error", "Failed to sort the register list: " + e.getMessage());
