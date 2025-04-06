@@ -107,7 +107,6 @@ public class CourseController
     @javafx.fxml.FXML
     public void getFirstOnAction(ActionEvent actionEvent) {
         //AGREGAR FORMATEO PARA SALIDA DEL ELEMENTO
-
         try {
             this.alert.setContentText("The first element is: " + this.courseList.getFirst());
             util.Utility.setCourseList(this.courseList); //actualizo la lista general

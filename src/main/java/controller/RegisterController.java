@@ -7,23 +7,23 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+//import javafx.fxml.FXMLLoader;
+//import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
+//import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+//import java.io.IOException;
+//import java.time.LocalDate;
+//import java.time.LocalDateTime;
+//import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+//import java.util.Date;
 
 public class RegisterController {
     @javafx.fxml.FXML
@@ -66,7 +66,8 @@ public class RegisterController {
     private DoublyLinkedList courseList;
     private SinglyLinkedList studentList;
     private DoublyLinkedList registerList;
-    private Alert alert;
+    private Alert alert; //para el manejo de alertas
+
 
     @javafx.fxml.FXML
     public void initialize() {
@@ -170,7 +171,9 @@ public class RegisterController {
 
 
     @javafx.fxml.FXML
-    public void removeOnAction(ActionEvent actionEvent) {}
+    public void removeOnAction(ActionEvent actionEvent) {
+        util.FXUtility.loadPage("ucr.lab.HelloApplication", "removeRegister.fxml", bp);
+    }
 
     @javafx.fxml.FXML
     public void addSortedOnAction(ActionEvent actionEvent) {}
@@ -179,13 +182,28 @@ public class RegisterController {
     public void getFirstOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void removeFirstOnAction(ActionEvent actionEvent) {}
+    public void removeFirstOnAction(ActionEvent actionEvent) {
+        try {
+            this.registerList.removeFirst();
+            util.Utility.setRegisterList(this.registerList); //actualizo la lista general
+            Alert alert = new Alert(Alert.AlertType.INFORMATION); // Crear una nueva alerta
+            this.alert.setContentText("The first register was deleted");
+            this.alert.setAlertType(Alert.AlertType.INFORMATION);
+            this.alert.showAndWait();
+
+            updateTableView(); //actualiza el contenido del tableview
+        } catch (ListException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @javafx.fxml.FXML
     public void getLastOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void containsOnAction(ActionEvent actionEvent) {}
+    public void containsOnAction(ActionEvent actionEvent) {
+
+    }
 
     @javafx.fxml.FXML
     public void sortOnAction(ActionEvent actionEvent) {}
