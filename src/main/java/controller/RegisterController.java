@@ -136,7 +136,7 @@ public class RegisterController {
             }
             registrationTableview.setItems(registerObservableList);
         } catch (ListException ex) {
-            showError("Error", "La lista de registros está vacía.");
+            showError("ERROR", "LIST IS EMPTY");
         }
     }
 
@@ -211,16 +211,13 @@ public class RegisterController {
     @javafx.fxml.FXML
     public void sizeOnAction(ActionEvent actionEvent) {
         try {
-           // this.registerList.size(); // Limpia la lista
-           // util.Utility.setRegisterList(this.registerList); // Actualiza la lista global
-
             // Mostrar alerta
             if (alert == null) {
                 alert = new Alert(Alert.AlertType.INFORMATION);
             }
             alert.setContentText("Size of the list: " + this.registerList.size());
             alert.setAlertType(Alert.AlertType.INFORMATION);
-            alert.showAndWait(); // Muestra la alerta
+            alert.showAndWait(); // Muestra alerta
 
             updateTableView(); // Actualiza el contenido del TableView
 
@@ -245,7 +242,7 @@ public class RegisterController {
     // Obtener el nombre del estudiante por ID
     private String getStudentNameById(String studentId) throws ListException {
         if (studentList == null || studentList.isEmpty()) {
-            return "Desconocido"; // Retorna "Desconocido" si la lista está vacía
+            return "Unknown"; // Retorna "Desconocido" si la lista está vacía
         }
         for (int i = 1; i <= studentList.size(); i++) {
             Student student = (Student) studentList.getNode(i).data;
@@ -253,12 +250,12 @@ public class RegisterController {
                 return student.getName();
             }
         }
-        return "Desconocido"; // Si no se encuentra el estudiante, devuelve "Desconocido"
+        return "Unknown"; // Si no se encuentra el estudiante
     }
 
     private String getCourseNameById(String courseId) throws ListException {
         if (courseList == null || courseList.isEmpty()) {
-            return "Desconocido"; // Retorna "Desconocido" si la lista está vacía
+            return "Unknown"; // Retorna "Desconocido" si la lista está vacía
         }
         for (int i = 1; i <= courseList.size(); i++) {
             Course course = (Course) courseList.getNode(i).data;
@@ -266,7 +263,7 @@ public class RegisterController {
                 return course.getName();
             }
         }
-        return "Desconocido"; // Si no se encuentra el curso, devuelve "Desconocido"
+        return "Unknown"; // Si no se encuentra el curso"
     }
 
     private int getCreditsByCourseId(String courseId) throws ListException {
@@ -279,7 +276,7 @@ public class RegisterController {
                 return course.getCredits();
             }
         }
-        return 0; // Si no se encuentra el curso, devuelve 0
+        return 0; // Si no se encuentra el curso
     }
     // Método para mostrar alertas de error
     private void showError(String title, String message) {
