@@ -313,11 +313,11 @@ public class DoublyLinkedList implements List {
                 Register register1 = (Register) aux.data;
                 Register register2 = (Register) aux.next.data;
 
-                // Comparar por el nombre del estudiante en los registros
+                //Comparar por el nombre del estudiante en los registros
                 String studentName1 = util.Utility.getStudentNameById(register1.getStudentId());
                 String studentName2 = util.Utility.getStudentNameById(register2.getStudentId());
 
-                // Comparar los nombres
+                //Comparar los nombres
                 if (studentName1.compareTo(studentName2) > 0) {
                     // Intercambiar los nodos
                     Object temp = aux.data;
@@ -329,7 +329,7 @@ public class DoublyLinkedList implements List {
 
                 aux = aux.next;
             }
-        } while (swapped); // Continuar hasta que no haya intercambios
+        } while (swapped); //Continuar hasta que no haya intercambios
 
 
     }

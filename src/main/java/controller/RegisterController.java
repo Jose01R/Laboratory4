@@ -160,7 +160,7 @@ public class RegisterController {
 
             // Mostrar una alerta de éxito
             alert.setAlertType(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Lista ordenada por el nombre del estudiante.");
+            alert.setHeaderText("List sorted by student's name");
             alert.showAndWait();
         } catch (ListException e) {
             showError("Error", "La lista de registros está vacía.");
@@ -177,9 +177,48 @@ public class RegisterController {
 
     @javafx.fxml.FXML
     public void getNextOnAction(ActionEvent actionEvent){
-        util.FXUtility.loadPage("ucr.lab.HelloApplication", "getNextRegister.fxml", bp);
-    }
+        try {
 
+            // Asegurarse de que la alerta esté inicializada
+            if (alert == null) {
+                alert = new Alert(Alert.AlertType.INFORMATION);
+            }
+
+            // Obtener el registro seleccionado
+            Register selectedRegister = registrationTableview.getSelectionModel().getSelectedItem();
+
+            if (selectedRegister != null) {
+                // Debug: Verificar el tipo del registro seleccionado
+                System.out.println("Selected Register: " + selectedRegister);
+
+                // Llamar al método getPrev pasando el registro seleccionado
+                Object prevRegister = this.registerList.getNext(selectedRegister);
+
+                // Verificar si el registro previo fue encontrado
+                if (prevRegister != null) {
+                    System.out.println("next Register: " + prevRegister);
+                    alert.setContentText("next element: " + prevRegister.toString());
+                } else {
+                    System.out.println("next element found.");
+                    alert.setContentText("next element not found.");
+                }
+            } else {
+                System.out.println("No register selected.");
+                alert.setContentText("No register selected.");
+            }
+
+            // Mostrar la alerta
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.showAndWait();
+
+            // Actualizar la tabla después de la operación
+            updateTableView();
+
+        } catch (ListException e) {
+            showError("Error", "Failed to retrieve the next element.");
+        }
+
+    }
 
     @javafx.fxml.FXML
     public void containsOnAction(ActionEvent actionEvent) {
@@ -211,9 +250,9 @@ public class RegisterController {
         }
     }
 
-    // Métodos para obtener elementos
+    //Métodos para obtener elementos
 
-    // Obtener el nombre del estudiante por ID
+    //Obtener el nombre del estudiante por ID
     private String getStudentNameById(String studentId) throws ListException {
         if (studentList == null || studentList.isEmpty()) {
             return "Desconocido"; // Retorna "Desconocido" si la lista está vacía
@@ -224,7 +263,7 @@ public class RegisterController {
                 return student.getName();
             }
         }
-        return "Desconocido"; // Si no se encuentra el estudiante, devuelve "Desconocido"
+        return "Desconocido"; //Si no se encuentra el estudiante, devuelve "Desconocido"
     }
 
     private String getCourseNameById(String courseId) throws ListException {
