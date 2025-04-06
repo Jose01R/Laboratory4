@@ -44,8 +44,6 @@ public class RegisterController {
     private Button removeFirstButton;
     @javafx.fxml.FXML
     private Button removeButton;
-    @javafx.fxml.FXML
-    private Button sortButton;
 
     @javafx.fxml.FXML
     private TableColumn<Register, Integer> idTableColumn;
@@ -146,7 +144,31 @@ public class RegisterController {
     }
 
     @javafx.fxml.FXML
-    public void addFirstOnAction(ActionEvent actionEvent) {}
+    public void sortByIdOnAction(ActionEvent actionEvent) {
+        try {
+            // Ordenar la lista principal
+            this.registerList.sort(); // Asegúrate de que este método ordena por ID
+
+            // Actualiza la lista global (por si se usa en otros lados)
+            util.Utility.setRegisterList(this.registerList);
+
+            // Actualiza la tabla
+            registrationTableview.setItems(registerObservableList);
+
+            // Mostrar alerta
+            if (alert == null) {
+                alert = new Alert(Alert.AlertType.INFORMATION);
+            }
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.setTitle("Sorted");
+            alert.setHeaderText(null);
+            alert.setContentText("Registers sorted by ID successfully.");
+            alert.showAndWait();
+
+        } catch (ListException e) {
+            showError("Error", "Failed to sort the register list: " + e.getMessage());
+        }
+    }
 
     @javafx.fxml.FXML
     public void clearOnAction(ActionEvent actionEvent) {
@@ -184,16 +206,20 @@ public class RegisterController {
     @javafx.fxml.FXML
     public void removeFirstOnAction(ActionEvent actionEvent) {
         try {
+            // Mostrar alerta
+            if (alert == null) {
+                alert = new Alert(Alert.AlertType.INFORMATION);
+            }
             this.registerList.removeFirst();
             util.Utility.setRegisterList(this.registerList); //actualizo la lista general
-            Alert alert = new Alert(Alert.AlertType.INFORMATION); // Crear una nueva alerta
-            this.alert.setContentText("The first register was deleted");
-            this.alert.setAlertType(Alert.AlertType.INFORMATION);
-            this.alert.showAndWait();
+            alert.setContentText("The first register was deleted");
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.showAndWait(); // Muestra alerta
 
-            updateTableView(); //actualiza el contenido del tableview
+            updateTableView(); // Actualiza el contenido del TableView
+
         } catch (ListException e) {
-            throw new RuntimeException(e);
+            showError("Error", "Failed to update the table view.");
         }
     }
 
@@ -205,8 +231,11 @@ public class RegisterController {
 
     }
 
-    @javafx.fxml.FXML
-    public void sortOnAction(ActionEvent actionEvent) {}
+    @Deprecated
+    public void sortOnAction(ActionEvent actionEvent) {
+        this.registerList.sortByName();
+
+    }
 
     @javafx.fxml.FXML
     public void sizeOnAction(ActionEvent actionEvent) {

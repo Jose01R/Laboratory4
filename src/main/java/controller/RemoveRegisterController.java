@@ -38,7 +38,7 @@ public class RemoveRegisterController {
 
     @javafx.fxml.FXML
     public void removeOnAction(ActionEvent actionEvent) {
-        String id = textFieldIdRegister.getText().trim();
+        int id = Integer.parseInt(textFieldIdRegister.getText().trim());
         try {
             for (int i = 1; i <= registerList.size(); i++) {
                 Register register = (Register) registerList.getNode(i).data;

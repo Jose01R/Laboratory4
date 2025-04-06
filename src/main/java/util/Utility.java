@@ -1,9 +1,6 @@
 package util;
 
-import domain.Course;
-import domain.DoublyLinkedList;
-import domain.SinglyLinkedList;
-import domain.Student;
+import domain.*;
 
 import java.text.DecimalFormat;
 import java.util.Random;
@@ -124,6 +121,11 @@ public class Utility {
                 return course.getName().compareTo(name1) < 0 ? -1
                         : course.getName().compareTo(name1) > 0 ? 1 : 0;
 
+            case "Register":
+                Register r1 = (Register) a;
+                Register r2 = (Register) b;
+                return Integer.compare(r1.getId(), r2.getId());
+
     }
         return 2; //Unknown
 }
@@ -136,6 +138,7 @@ public class Utility {
         if(a instanceof Student && b instanceof String) return "StudentByName";
         if(a instanceof Course && b instanceof Course) return "Course";
         if(a instanceof Course && b instanceof String) return "CourseByName";
+        if(a instanceof Register && b instanceof Register) return "Register";
 
 
         return "Unknown";

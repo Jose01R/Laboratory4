@@ -169,7 +169,7 @@ public class DoublyLinkedList implements List {
     }
 
     @Override
-    public void sort() throws ListException {//me falta implementar
+    public void sort() throws ListException {
         if(isEmpty())
             throw new ListException("Doubly Linked List is empty");
 
