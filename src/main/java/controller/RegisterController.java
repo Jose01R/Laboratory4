@@ -7,23 +7,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.Optional;
 
 public class RegisterController {
     @javafx.fxml.FXML
@@ -72,7 +62,7 @@ public class RegisterController {
     public void initialize() {
         this.registerList = util.Utility.getRegisterList();
         registerObservableList = FXCollections.observableArrayList();
-
+        alert = util.FXUtility.alert("Student List", "Display Student");
         // Configuración de las columnas del TableView
         idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
@@ -161,7 +151,10 @@ public class RegisterController {
     public void removeFirstOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void getLastOnAction(ActionEvent actionEvent) {}
+    public void getNextOnAction(ActionEvent actionEvent){
+        util.FXUtility.loadPage("ucr.lab.HelloApplication", "getNextRegister.fxml", bp);
+    }
+
 
     @javafx.fxml.FXML
     public void containsOnAction(ActionEvent actionEvent) {

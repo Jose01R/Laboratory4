@@ -115,6 +115,11 @@ public class Utility {
                 return student.getName().compareTo(name) < 0 ? -1
                         : student.getName().compareTo(name) > 0 ? 1 : 0;
 
+            case "Register":
+                Register register1 = (Register) a;
+                Integer register2 = (Integer) b;
+                return register1.getId() <register2 ? -1 : register1.getId()>register2 ? 1 : 0;
+
 //            case "CourseByName":
 //                Course course = (Course) a;
 //                String name1 = (String) b;
@@ -132,6 +137,7 @@ public class Utility {
         if(a instanceof Student && b instanceof Student) return "Student";
         if(a instanceof Student && b instanceof String) return "StudentByName";
         if(a instanceof Course && b instanceof Course) return "Course";
+        if(a instanceof Register && b instanceof Integer)return "Register";
 //        if(a instanceof Course && b instanceof String) return "CourseByName";
 
 
