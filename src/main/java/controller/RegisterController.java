@@ -148,7 +148,26 @@ public class RegisterController {
     public void addFirstOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void clearOnAction(ActionEvent actionEvent) {}
+    public void clearOnAction(ActionEvent actionEvent) {
+        try {
+            this.registerList.clear(); // Limpia la lista
+            util.Utility.setRegisterList(this.registerList); // Actualiza la lista global
+
+            // Mostrar alerta
+            if (alert == null) {
+                alert = new Alert(Alert.AlertType.INFORMATION);
+            }
+            alert.setContentText("The list was deleted");
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.showAndWait(); // Muestra la alerta
+
+            updateTableView(); // Actualiza el contenido del TableView
+
+        } catch (ListException e) {
+            showError("Error", "Failed to update the table view.");
+        }
+    }
+
 
     @javafx.fxml.FXML
     public void removeOnAction(ActionEvent actionEvent) {}
@@ -174,11 +193,21 @@ public class RegisterController {
     @javafx.fxml.FXML
     public void sizeOnAction(ActionEvent actionEvent) {
         try {
-            util.FXUtility.alert("MESSAGE", "The number of registers is: " + this.registerList.size());
-            util.Utility.setRegisterList(this.registerList); // Update the global list
-            updateTableView(); // Update the content of the TableView
+           // this.registerList.size(); // Limpia la lista
+           // util.Utility.setRegisterList(this.registerList); // Actualiza la lista global
+
+            // Mostrar alerta
+            if (alert == null) {
+                alert = new Alert(Alert.AlertType.INFORMATION);
+            }
+            alert.setContentText("Size of the list: " + this.registerList.size());
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.showAndWait(); // Muestra la alerta
+
+            updateTableView(); // Actualiza el contenido del TableView
+
         } catch (ListException e) {
-            util.FXUtility.alert("ERROR", "ERROR OCURRED");
+            showError("Error", "Failed to update the table view.");
         }
     }
 
