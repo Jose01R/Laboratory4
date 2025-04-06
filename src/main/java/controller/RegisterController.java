@@ -61,6 +61,8 @@ public class RegisterController {
     @javafx.fxml.FXML
     public void initialize() {
         this.registerList = util.Utility.getRegisterList();
+        this.courseList=util.Utility.getCourseList();
+        this.studentList=util.Utility.getStudentList();
         registerObservableList = FXCollections.observableArrayList();
         alert = util.FXUtility.alert("Student List", "Display Student");
         // Configuración de las columnas del TableView
@@ -142,7 +144,30 @@ public class RegisterController {
     public void removeOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void addSortedOnAction(ActionEvent actionEvent) {}
+    public void sortByStudentOnAction(ActionEvent actionEvent) {
+        try {
+            // Ordenar la lista de registros
+            registerList.sort();  // Llamada al método sort
+
+            // Actualizar la lista en el TableView
+            registerObservableList.clear();
+            for (int i = 1; i <= registerList.size(); i++) {
+                registerObservableList.add((Register) registerList.getNode(i).data);
+            }
+
+            // Actualizar la visualización del TableView
+            registrationTableview.setItems(registerObservableList);
+
+            // Mostrar una alerta de éxito
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Lista ordenada por el nombre del estudiante.");
+            alert.showAndWait();
+        } catch (ListException e) {
+            showError("Error", "La lista de registros está vacía.");
+        }
+    }
+
+
 
     @javafx.fxml.FXML
     public void getFirstOnAction(ActionEvent actionEvent) {}

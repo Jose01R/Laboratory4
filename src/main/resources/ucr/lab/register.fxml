@@ -44,7 +44,7 @@
                             <buttons>
                                 <Button fx:id="sizeButton" layoutX="202.0" layoutY="17.0" mnemonicParsing="false" onAction="#sizeOnAction" text="Size" />
                                 <Button fx:id="containsButton" layoutX="685.0" layoutY="17.0" mnemonicParsing="false" onAction="#containsOnAction" text="Contains" />
-                                <Button layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#addSortedOnAction" text="Sort by Student" />
+                                <Button layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#sortByStudentOnAction" text="Sort by Student" />
                                 <Button layoutX="135.0" layoutY="17.0" mnemonicParsing="false" onAction="#addFirstOnAction" text="Sort by Id" />
                                 <Button mnemonicParsing="false" onAction="#addOnAction" text="Add" />
                             </buttons>

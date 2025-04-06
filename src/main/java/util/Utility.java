@@ -139,8 +139,19 @@ public class Utility {
         if(a instanceof Course && b instanceof Course) return "Course";
         if(a instanceof Register && b instanceof Integer)return "Register";
 //        if(a instanceof Course && b instanceof String) return "CourseByName";
+        if(a instanceof Register && b instanceof Register)return "RegisterCompareName";
 
 
         return "Unknown";
     }
+    public static String getStudentNameById(String studentId) throws ListException {
+        for (int i = 1; i <= studentList.size(); i++) {
+            Student student = (Student) studentList.getNode(i).data;
+            if (student.getId().equals(studentId)) {
+                return student.getName(); // Retorna el nombre del estudiante
+            }
+        }
+        throw new ListException("Student not found");
+    }
+
 }

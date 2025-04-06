@@ -2,7 +2,7 @@ package domain;
 
 import java.time.LocalDateTime;
 
-public class Register {
+public class Register  {
     private int id;
     private LocalDateTime registerDate;
     private String studentId;
