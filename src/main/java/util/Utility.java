@@ -115,16 +115,17 @@ public class Utility {
                 return student.getName().compareTo(name) < 0 ? -1
                         : student.getName().compareTo(name) > 0 ? 1 : 0;
 
-            case "CourseByName":
-                Course course = (Course) a;
-                String name1 = (String) b;
-                return course.getName().compareTo(name1) < 0 ? -1
-                        : course.getName().compareTo(name1) > 0 ? 1 : 0;
-
             case "Register":
                 Register r1 = (Register) a;
                 Register r2 = (Register) b;
                 return Integer.compare(r1.getId(), r2.getId());
+
+
+//            case "CourseByName":
+//                Course course = (Course) a;
+//                String name1 = (String) b;
+//                return course.getName().compareTo(name1) < 0 ? -1
+//                        : course.getName().compareTo(name1) > 0 ? 1 : 0;
 
     }
         return 2; //Unknown
@@ -137,10 +138,21 @@ public class Utility {
         if(a instanceof Student && b instanceof Student) return "Student";
         if(a instanceof Student && b instanceof String) return "StudentByName";
         if(a instanceof Course && b instanceof Course) return "Course";
-        if(a instanceof Course && b instanceof String) return "CourseByName";
-        if(a instanceof Register && b instanceof Register) return "Register";
+        if(a instanceof Register && b instanceof Register)return "Register";
+//        if(a instanceof Course && b instanceof String) return "CourseByName";
+
 
 
         return "Unknown";
     }
+    public static String getStudentNameById(String studentId) throws ListException {
+        for (int i = 1; i <= studentList.size(); i++) {
+            Student student = (Student) studentList.getNode(i).data;
+            if (student.getId().equals(studentId)) {
+                return student.getName(); // Retorna el nombre del estudiante
+            }
+        }
+        throw new ListException("Student not found");
+    }
+
 }

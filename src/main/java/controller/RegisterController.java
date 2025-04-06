@@ -7,23 +7,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-//import javafx.fxml.FXMLLoader;
-//import javafx.scene.Parent;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-//import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
-//import java.io.IOException;
-//import java.time.LocalDate;
-//import java.time.LocalDateTime;
-//import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-//import java.util.Date;
+import java.util.Optional;
 
 public class RegisterController {
     @javafx.fxml.FXML
@@ -44,6 +34,8 @@ public class RegisterController {
     private Button removeFirstButton;
     @javafx.fxml.FXML
     private Button removeButton;
+    @javafx.fxml.FXML
+    private Button sortButton;
 
     @javafx.fxml.FXML
     private TableColumn<Register, Integer> idTableColumn;
@@ -64,16 +56,15 @@ public class RegisterController {
     private DoublyLinkedList courseList;
     private SinglyLinkedList studentList;
     private DoublyLinkedList registerList;
-    private Alert alert; //para el manejo de alertas
-
+    private Alert alert;
 
     @javafx.fxml.FXML
     public void initialize() {
-        this.studentList = util.Utility.getStudentList();  // Cargar lista de estudiantes
-        this.courseList = util.Utility.getCourseList();
         this.registerList = util.Utility.getRegisterList();
+        this.courseList=util.Utility.getCourseList();
+        this.studentList=util.Utility.getStudentList();
         registerObservableList = FXCollections.observableArrayList();
-
+        alert = util.FXUtility.alert("Student List", "Display Student");
         // Configuración de las columnas del TableView
         idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
@@ -134,7 +125,7 @@ public class RegisterController {
             }
             registrationTableview.setItems(registerObservableList);
         } catch (ListException ex) {
-            showError("ERROR", "LIST IS EMPTY");
+            showError("Error", "La lista de registros está vacía.");
         }
     }
 
@@ -144,175 +135,48 @@ public class RegisterController {
     }
 
     @javafx.fxml.FXML
-    public void sortByIdOnAction(ActionEvent actionEvent) {
+    public void addFirstOnAction(ActionEvent actionEvent) {}
+
+    @javafx.fxml.FXML
+    public void clearOnAction(ActionEvent actionEvent) {}
+
+    @javafx.fxml.FXML
+    public void removeOnAction(ActionEvent actionEvent) {}
+
+    @javafx.fxml.FXML
+    public void sortByStudentOnAction(ActionEvent actionEvent) {
         try {
-            // Ordenar la lista principal
-            this.registerList.sort(); // Asegúrate de que este método ordena por ID
+            // Ordenar la lista de registros
+            registerList.sort();  // Llamada al método sort
 
-            // Actualiza la lista global (por si se usa en otros lados)
-            util.Utility.setRegisterList(this.registerList);
+            // Actualizar la lista en el TableView
+            registerObservableList.clear();
+            for (int i = 1; i <= registerList.size(); i++) {
+                registerObservableList.add((Register) registerList.getNode(i).data);
+            }
 
-            // Actualiza la tabla
+            // Actualizar la visualización del TableView
             registrationTableview.setItems(registerObservableList);
 
-            // Mostrar alerta
-            if (alert == null) {
-                alert = new Alert(Alert.AlertType.INFORMATION);
-            }
+            // Mostrar una alerta de éxito
             alert.setAlertType(Alert.AlertType.INFORMATION);
-            alert.setTitle("Sorted");
-            alert.setHeaderText(null);
-            alert.setContentText("Registers sorted by ID successfully.");
+            alert.setHeaderText("List sorted by student's name");
             alert.showAndWait();
-
         } catch (ListException e) {
-            showError("Error", "Failed to sort the register list: " + e.getMessage());
+            showError("Error", "La lista de registros está vacía.");
         }
     }
 
-    @javafx.fxml.FXML
-    public void clearOnAction(ActionEvent actionEvent) {
-        try {
-            this.registerList.clear(); // Limpia la lista
-            util.Utility.setRegisterList(this.registerList); // Actualiza la lista global
-
-            // Mostrar alerta
-            if (alert == null) {
-                alert = new Alert(Alert.AlertType.INFORMATION);
-            }
-            alert.setContentText("The list was deleted");
-            alert.setAlertType(Alert.AlertType.INFORMATION);
-            alert.showAndWait(); // Muestra la alerta
-
-            updateTableView(); // Actualiza el contenido del TableView
-
-        } catch (ListException e) {
-            showError("Error", "Failed to update the table view.");
-        }
-    }
 
 
     @javafx.fxml.FXML
-    public void removeOnAction(ActionEvent actionEvent) {
-        util.FXUtility.loadPage("ucr.lab.HelloApplication", "removeRegister.fxml", bp);
-    }
+    public void getFirstOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void addSortedOnAction(ActionEvent actionEvent) {}
-
-
-    @javafx.fxml.FXML
-    public void removeFirstOnAction(ActionEvent actionEvent) {
-        try {
-            // Mostrar alerta
-            if (alert == null) {
-                alert = new Alert(Alert.AlertType.INFORMATION);
-            }
-            this.registerList.removeFirst();
-            util.Utility.setRegisterList(this.registerList); //actualizo la lista general
-            alert.setContentText("The first register was deleted");
-            alert.setAlertType(Alert.AlertType.INFORMATION);
-            alert.showAndWait(); // Muestra alerta
-
-            updateTableView(); // Actualiza el contenido del TableView
-
-        } catch (ListException e) {
-            showError("Error", "Failed to update the table view.");
-        }
-    }
+    public void removeFirstOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void getLastOnAction(ActionEvent actionEvent) {}
-
-    @javafx.fxml.FXML
-    public void containsOnAction(ActionEvent actionEvent) {
-
-    }
-
-    @javafx.fxml.FXML
-    public void sizeOnAction(ActionEvent actionEvent) {
-        try {
-            // Mostrar alerta
-            if (alert == null) {
-                alert = new Alert(Alert.AlertType.INFORMATION);
-            }
-            alert.setContentText("Size of the list: " + this.registerList.size());
-            alert.setAlertType(Alert.AlertType.INFORMATION);
-            alert.showAndWait(); // Muestra alerta
-
-            updateTableView(); // Actualiza el contenido del TableView
-
-        } catch (ListException e) {
-            showError("Error", "Failed to update the table view.");
-        }
-    }
-
-    // Método para actualizar la lista de registros
-    public void updateTableView() throws ListException {
-        this.registrationTableview.getItems().clear(); //clear table
-        this.registerList = util.Utility.getRegisterList(); //cargo la lista
-        if(registerList != null && !registerList.isEmpty()){
-            for(int i = 1; i <= registerList.size(); i++) {
-                this.registrationTableview.getItems().add((Register) registerList.getNode(i).data);
-            }
-        }
-    }
-
-
-    // Métodos para obtener elementos
-
-    // Obtener el nombre del estudiante por ID
-    private String getStudentNameById(String studentId) throws ListException {
-        if (studentList == null || studentList.isEmpty()) {
-            return "Unknown"; // Retorna "Desconocido" si la lista está vacía
-        }
-        for (int i = 1; i <= studentList.size(); i++) {
-            Student student = (Student) studentList.getNode(i).data;
-            if (student.getId().equals(studentId)) {
-                return student.getName();
-            }
-        }
-        return "Unknown"; // Si no se encuentra el estudiante
-    }
-
-    private String getCourseNameById(String courseId) throws ListException {
-        if (courseList == null || courseList.isEmpty()) {
-            return "Unknown"; // Retorna "Desconocido" si la lista está vacía
-        }
-        for (int i = 1; i <= courseList.size(); i++) {
-            Course course = (Course) courseList.getNode(i).data;
-            if (course.getId().equals(courseId)) {
-                return course.getName();
-            }
-        }
-        return "Unknown"; // Si no se encuentra el curso"
-    }
-
-    private int getCreditsByCourseId(String courseId) throws ListException {
-        if (courseList == null || courseList.isEmpty()) {
-            return 0; // Retorna 0 si la lista está vacía
-        }
-        for (int i = 1; i <= courseList.size(); i++) {
-            Course course = (Course) courseList.getNode(i).data;
-            if (course.getId().equals(courseId)) {
-                return course.getCredits();
-            }
-        }
-        return 0; // Si no se encuentra el curso
-    }
-    // Método para mostrar alertas de error
-    private void showError(String title, String message) {
-        Platform.runLater(() -> {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle(title);
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            alert.showAndWait();
-        });
-    }
-
-    @javafx.fxml.FXML
-    public void getPrevOnAction(ActionEvent actionEvent) {
+    public void getNextOnAction(ActionEvent actionEvent){
         try {
 
             // Asegurarse de que la alerta esté inicializada
@@ -328,15 +192,15 @@ public class RegisterController {
                 System.out.println("Selected Register: " + selectedRegister);
 
                 // Llamar al método getPrev pasando el registro seleccionado
-                Object prevRegister = this.registerList.getPrev(selectedRegister);
+                Object prevRegister = this.registerList.getNext(selectedRegister);
 
                 // Verificar si el registro previo fue encontrado
                 if (prevRegister != null) {
-                    System.out.println("Previous Register: " + prevRegister);
-                    alert.setContentText("Previous element: " + prevRegister.toString());
+                    System.out.println("next Register: " + prevRegister);
+                    alert.setContentText("next element: " + prevRegister.toString());
                 } else {
-                    System.out.println("No previous element found.");
-                    alert.setContentText("No previous element found.");
+                    System.out.println("next element found.");
+                    alert.setContentText("next element not found.");
                 }
             } else {
                 System.out.println("No register selected.");
@@ -351,8 +215,90 @@ public class RegisterController {
             updateTableView();
 
         } catch (ListException e) {
-            showError("Error", "Failed to retrieve the previous element.");
+            showError("Error", "Failed to retrieve the next element.");
         }
-        
+
+    }
+
+    @javafx.fxml.FXML
+    public void containsOnAction(ActionEvent actionEvent) {
+        util.FXUtility.loadPage("ucr.lab.HelloApplication", "containsRegistration.fxml", bp);
+    }
+
+    @javafx.fxml.FXML
+    public void sortOnAction(ActionEvent actionEvent) {}
+
+    @javafx.fxml.FXML
+    public void sizeOnAction(ActionEvent actionEvent) {
+        try {
+            util.FXUtility.alert("MESSAGE", "The number of registers is: " + this.registerList.size());
+            util.Utility.setRegisterList(this.registerList); // Update the global list
+            updateTableView(); // Update the content of the TableView
+        } catch (ListException e) {
+            util.FXUtility.alert("ERROR", "ERROR OCURRED");
+        }
+    }
+
+    // Método para actualizar la lista de registros
+    public void updateTableView() throws ListException {
+        this.registrationTableview.getItems().clear(); //clear table
+        this.registerList = util.Utility.getRegisterList(); //cargo la lista
+        if(registerList != null && !registerList.isEmpty()){
+            for(int i = 1; i <= registerList.size(); i++) {
+                this.registrationTableview.getItems().add((Register) registerList.getNode(i).data);
+            }
+        }
+    }
+
+    //Métodos para obtener elementos
+
+    //Obtener el nombre del estudiante por ID
+    private String getStudentNameById(String studentId) throws ListException {
+        if (studentList == null || studentList.isEmpty()) {
+            return "Desconocido"; // Retorna "Desconocido" si la lista está vacía
+        }
+        for (int i = 1; i <= studentList.size(); i++) {
+            Student student = (Student) studentList.getNode(i).data;
+            if (student.getId().equals(studentId)) {
+                return student.getName();
+            }
+        }
+        return "Desconocido"; //Si no se encuentra el estudiante, devuelve "Desconocido"
+    }
+
+    private String getCourseNameById(String courseId) throws ListException {
+        if (courseList == null || courseList.isEmpty()) {
+            return "Desconocido"; // Retorna "Desconocido" si la lista está vacía
+        }
+        for (int i = 1; i <= courseList.size(); i++) {
+            Course course = (Course) courseList.getNode(i).data;
+            if (course.getId().equals(courseId)) {
+                return course.getName();
+            }
+        }
+        return "Desconocido"; // Si no se encuentra el curso, devuelve "Desconocido"
+    }
+
+    private int getCreditsByCourseId(String courseId) throws ListException {
+        if (courseList == null || courseList.isEmpty()) {
+            return 0; // Retorna 0 si la lista está vacía
+        }
+        for (int i = 1; i <= courseList.size(); i++) {
+            Course course = (Course) courseList.getNode(i).data;
+            if (course.getId().equals(courseId)) {
+                return course.getCredits();
+            }
+        }
+        return 0; // Si no se encuentra el curso, devuelve 0
+    }
+    // Método para mostrar alertas de error
+    private void showError(String title, String message) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.showAndWait();
+        });
     }
 }

@@ -39,9 +39,13 @@ public class AddStudentController
 
        String id= textFieldId.getText().trim();
        String name=textFieldName.getText().trim();
-       int age=Integer.parseInt(textFieldAge.getText().trim());
+       String ageText=(textFieldAge.getText().trim());
        String address= textFieldAddress.getText().trim();
-
+       // Validar la entrada
+       if (id.isEmpty() || name.isEmpty() || ageText.isEmpty() || address.isEmpty()) {
+           util.FXUtility.alert("Error", "Todos los campos son obligatorios.").showAndWait();
+           return;
+       }
        if (idAlreadyExists(id)) {
            alert.setAlertType(Alert.AlertType.WARNING);
            alert.setHeaderText("Ya existe un estudiante con ese ID.");
@@ -50,6 +54,7 @@ public class AddStudentController
            return;
        }
 
+       int age=Integer.parseInt(textFieldAge.getText().trim());
        student= new Student(id,name,age,address);
        studentList.add(student);
        //Alerta al añadir
