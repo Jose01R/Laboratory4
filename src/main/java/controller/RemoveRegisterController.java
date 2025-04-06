@@ -38,33 +38,62 @@ public class RemoveRegisterController {
 
     @javafx.fxml.FXML
     public void removeOnAction(ActionEvent actionEvent) {
-        int id = Integer.parseInt(textFieldIdRegister.getText().trim());
+        String id = textFieldIdRegister.getText().trim();
+
+        if (id.isEmpty()) {
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setHeaderText("The ID field must be filled.");
+            alert.show();
+            return;
+        }
+
+        if (registerList.isEmpty()) {
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setHeaderText("The register list is empty.");
+            alert.show();
+            return;
+        }
+
         try {
+            int registerId = Integer.parseInt(id); // Convertir el ID a int
+            boolean removed = false;
+
             for (int i = 1; i <= registerList.size(); i++) {
                 Register register = (Register) registerList.getNode(i).data;
-                if (util.Utility.compare(register.getId(),id)==0) {
+
+                if (register.getId() == registerId) {
                     registerList.remove(register);
+
                     alert.setAlertType(Alert.AlertType.INFORMATION);
                     alert.setHeaderText("The register has been deleted.");
                     alert.show();
 
-                    break;//Se sale del metodo si elimina un estudiante
+                    // Opcional: Actualizar la tabla si estás volviendo a RegisterController
+                    removed = true;
+                    break;
                 }
-                if(textFieldIdRegister.getText().isEmpty()) {
-                    alert.setHeaderText("Text field have to be filled");
-                    alert.show();
-                }else
-                    alert.setAlertType(Alert.AlertType.ERROR);
+            }
+
+            if (!removed) {
+                alert.setAlertType(Alert.AlertType.ERROR);
                 alert.setHeaderText("Register not found.");
                 alert.show();
             }
 
+        } catch (NumberFormatException e) {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setHeaderText("Invalid ID format. It must be a number.");
+            alert.show();
         } catch (ListException e) {
-            alert.setHeaderText("Error al eliminar el registro: " + e.getMessage());
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error while removing the register: " + e.getMessage());
             alert.show();
         }
+
         textFieldIdRegister.clear();
     }
+
+
 
     @javafx.fxml.FXML
     public void closeOnAction(ActionEvent actionEvent) {
