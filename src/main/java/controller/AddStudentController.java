@@ -88,6 +88,7 @@ public class AddStudentController
     void closeOnAction(ActionEvent event) {
         util.FXUtility.loadPage("ucr.lab.HelloApplication", "student.fxml", bp);
     }
+
     public boolean idAlreadyExists(String id) {
         try {
             for (int i = 1; i <= studentList.size(); i++) {

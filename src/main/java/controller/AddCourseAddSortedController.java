@@ -33,7 +33,7 @@ public class AddCourseAddSortedController
     public void initialize() {
         //cargamos la lista general
         this.courseList = util.Utility.getCourseList();
-        alert = util.FXUtility.alert("Course List", "Add Cours (Add First)");
+        alert = util.FXUtility.alert("Course List", "Add Cours (Add Sorted)");
     }
 
     @javafx.fxml.FXML
@@ -54,7 +54,7 @@ public class AddCourseAddSortedController
         // Obtener los valores de los campos
         String id = textFieldCourseId.getText().trim();
         String name = textFieldName.getText().trim();
-        String creditsText = textFieldCourseId.getText().trim();
+        String creditsText = textFieldCredits.getText().trim();
 
         // Validar la entrada
         if (id.isEmpty() || name.isEmpty() || creditsText.isEmpty()) {
@@ -65,7 +65,15 @@ public class AddCourseAddSortedController
         try {
             int credits = Integer.parseInt(creditsText); // Convertir los creditos a un int
 
-            // Crear un nuevo estudiante
+            if (idAlreadyExists(id)) {
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setHeaderText("Ya existe un curso con ese ID.");
+                alert.show();
+                textFieldCourseId.clear();
+                return;
+            }
+
+            // Crear un nuevo curso
             Course course = new Course(id, name, credits);
 
             // Agregarlo a la lista (esto asume que tienes el método addFirst)
@@ -82,5 +90,21 @@ public class AddCourseAddSortedController
         } catch (NumberFormatException | ListException e) {
             util.FXUtility.alert("ERROR", "Credits could be a valid number.").showAndWait();
         }
+    }
+
+    public boolean idAlreadyExists(String id) {
+        try {
+            for (int i = 1; i <= courseList.size(); i++) {
+                Course c = (Course) courseList.getNode(i).data;
+                if (c.getId().equals(id)) {
+                    return true; //El iD ya existe
+                }
+            }
+        } catch (ListException e) {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error al validar ID: " + e.getMessage());
+            alert.show();
+        }
+        return false; //El iD no existe
     }
 }

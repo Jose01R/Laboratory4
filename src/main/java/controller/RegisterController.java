@@ -7,23 +7,23 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+//import javafx.fxml.FXMLLoader;
+//import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
+//import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+//import java.io.IOException;
+//import java.time.LocalDate;
+//import java.time.LocalDateTime;
+//import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+//import java.util.Date;
 
 public class RegisterController {
     @javafx.fxml.FXML
@@ -64,7 +64,8 @@ public class RegisterController {
     private DoublyLinkedList courseList;
     private SinglyLinkedList studentList;
     private DoublyLinkedList registerList;
-    private Alert alert;
+    private Alert alert; //para el manejo de alertas
+
 
     @javafx.fxml.FXML
     public void initialize() {
@@ -143,7 +144,31 @@ public class RegisterController {
     }
 
     @javafx.fxml.FXML
-    public void addFirstOnAction(ActionEvent actionEvent) {}
+    public void sortByIdOnAction(ActionEvent actionEvent) {
+        try {
+            // Ordenar la lista principal
+            this.registerList.sort(); // Asegúrate de que este método ordena por ID
+
+            // Actualiza la lista global (por si se usa en otros lados)
+            util.Utility.setRegisterList(this.registerList);
+
+            // Actualiza la tabla
+            registrationTableview.setItems(registerObservableList);
+
+            // Mostrar alerta
+            if (alert == null) {
+                alert = new Alert(Alert.AlertType.INFORMATION);
+            }
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.setTitle("Sorted");
+            alert.setHeaderText(null);
+            alert.setContentText("Registers sorted by ID successfully.");
+            alert.showAndWait();
+
+        } catch (ListException e) {
+            showError("Error", "Failed to sort the register list: " + e.getMessage());
+        }
+    }
 
     @javafx.fxml.FXML
     public void clearOnAction(ActionEvent actionEvent) {
@@ -175,20 +200,42 @@ public class RegisterController {
     @javafx.fxml.FXML
     public void addSortedOnAction(ActionEvent actionEvent) {}
 
-    @Deprecated
+    @javafx.fxml.FXML
     public void getFirstOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void removeFirstOnAction(ActionEvent actionEvent) {}
+    public void removeFirstOnAction(ActionEvent actionEvent) {
+        try {
+            // Mostrar alerta
+            if (alert == null) {
+                alert = new Alert(Alert.AlertType.INFORMATION);
+            }
+            this.registerList.removeFirst();
+            util.Utility.setRegisterList(this.registerList); //actualizo la lista general
+            alert.setContentText("The first register was deleted");
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.showAndWait(); // Muestra alerta
+
+            updateTableView(); // Actualiza el contenido del TableView
+
+        } catch (ListException e) {
+            showError("Error", "Failed to update the table view.");
+        }
+    }
 
     @javafx.fxml.FXML
     public void getLastOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void containsOnAction(ActionEvent actionEvent) {}
+    public void containsOnAction(ActionEvent actionEvent) {
+
+    }
 
     @Deprecated
-    public void sortOnAction(ActionEvent actionEvent) {}
+    public void sortOnAction(ActionEvent actionEvent) {
+        this.registerList.sortByName();
+
+    }
 
     @javafx.fxml.FXML
     public void sizeOnAction(ActionEvent actionEvent) {
@@ -207,53 +254,6 @@ public class RegisterController {
             showError("Error", "Failed to update the table view.");
         }
     }
-
-    @javafx.fxml.FXML
-    public void getPrevOnAction(ActionEvent actionEvent) {
-        try {
-
-            // Asegurarse de que la alerta esté inicializada
-            if (alert == null) {
-                alert = new Alert(Alert.AlertType.INFORMATION);
-            }
-
-            // Obtener el registro seleccionado
-            Register selectedRegister = registrationTableview.getSelectionModel().getSelectedItem();
-
-            if (selectedRegister != null) {
-                // Debug: Verificar el tipo del registro seleccionado
-                System.out.println("Selected Register: " + selectedRegister);
-
-                // Llamar al método getPrev pasando el registro seleccionado
-                Object prevRegister = this.registerList.getPrev(selectedRegister);
-
-                // Verificar si el registro previo fue encontrado
-                if (prevRegister != null) {
-                    System.out.println("Previous Register: " + prevRegister);
-                    alert.setContentText("Previous element: " + prevRegister.toString());
-                } else {
-                    System.out.println("No previous element found.");
-                    alert.setContentText("No previous element found.");
-                }
-            } else {
-                System.out.println("No register selected.");
-                alert.setContentText("No register selected.");
-            }
-
-            // Mostrar la alerta
-            alert.setAlertType(Alert.AlertType.INFORMATION);
-            alert.showAndWait();
-
-            // Actualizar la tabla después de la operación
-            updateTableView();
-
-        } catch (ListException e) {
-            showError("Error", "Failed to retrieve the previous element.");
-        }
-
-
-    }
-
 
     // Método para actualizar la lista de registros
     public void updateTableView() throws ListException {
@@ -317,6 +317,4 @@ public class RegisterController {
             alert.showAndWait();
         });
     }
-
-
 }

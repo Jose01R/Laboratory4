@@ -1,9 +1,6 @@
 package controller;
 
-import domain.Course;
-import domain.DoublyLinkedList;
-import domain.SinglyLinkedList;
-import domain.Student;
+import domain.*;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
@@ -51,6 +48,14 @@ public class AddCourseController
         String name = textFieldName.getText().trim();
         int credits = Integer.parseInt(textFieldCredits.getText().trim());
 
+        if (idAlreadyExists(id)) {
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setHeaderText("Ya existe un curso con ese ID.");
+            alert.show();
+            textFieldCourseId.clear();
+            return;
+        }
+
         Course course = new Course(id, name, credits);
         courseList.add(course);
 
@@ -58,7 +63,7 @@ public class AddCourseController
         alert.setAlertType(Alert.AlertType.INFORMATION);
         alert.setTitle("Add course");
         alert.setHeaderText("The course has been added");
-        alert.showAndWait();
+        //alert.showAndWait();
 
         //Limpiar una vez se agregan
         textFieldCourseId.clear();
@@ -78,6 +83,22 @@ public class AddCourseController
             alert.show();
             textFieldCredits.clear();
         }
+    }
+
+    public boolean idAlreadyExists(String id) {
+        try {
+            for (int i = 1; i <= courseList.size(); i++) {
+                Course c = (Course) courseList.getNode(i).data;
+                if (c.getId().equals(id)) {
+                    return true; //El iD ya existe
+                }
+            }
+        } catch (ListException e) {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error al validar ID: " + e.getMessage());
+            alert.show();
+        }
+        return false; //El iD no existe
     }
 
 }
