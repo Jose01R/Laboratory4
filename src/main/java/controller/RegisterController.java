@@ -13,7 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 public class RegisterController {
     @javafx.fxml.FXML
@@ -121,7 +120,7 @@ public class RegisterController {
             }
             registrationTableview.setItems(registerObservableList);
         } catch (ListException ex) {
-            showError("Error", "La lista de registros está vacía.");
+            showError("Error", "The register list is empty.");
         }
     }
 
@@ -180,7 +179,7 @@ public class RegisterController {
             alert.setHeaderText("List sorted by student's name");
             alert.showAndWait();
         } catch (ListException e) {
-            showError("Error", "La lista de registros está vacía.");
+            showError("Error", "The register list is empty");
         }
     }
 
@@ -227,12 +226,12 @@ public class RegisterController {
                 System.out.println("Selected Register: " + selectedRegister);
 
                 // Llamar al método getPrev pasando el registro seleccionado
-                Object prevRegister = this.registerList.getNext(selectedRegister);
+                Object nextRegister = this.registerList.getNext(selectedRegister);
 
                 // Verificar si el registro previo fue encontrado
-                if (prevRegister != null) {
-                    System.out.println("next Register: " + prevRegister);
-                    alert.setContentText("next element: " + prevRegister.toString());
+                if (nextRegister != null) {
+                    System.out.println("next Register: " + nextRegister);
+                    alert.setContentText("next element: " + nextRegister.toString());
                 } else {
                     System.out.println("next element found.");
                     alert.setContentText("next element not found.");
