@@ -1,9 +1,6 @@
 package util;
 
-import domain.Course;
-import domain.DoublyLinkedList;
-import domain.SinglyLinkedList;
-import domain.Student;
+import domain.*;
 
 import java.text.DecimalFormat;
 import java.util.Random;

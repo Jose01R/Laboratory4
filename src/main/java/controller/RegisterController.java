@@ -164,7 +164,9 @@ public class RegisterController {
     public void getLastOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void containsOnAction(ActionEvent actionEvent) {}
+    public void containsOnAction(ActionEvent actionEvent) {
+        util.FXUtility.loadPage("ucr.lab.HelloApplication", "containsRegistration.fxml", bp);
+    }
 
     @javafx.fxml.FXML
     public void sortOnAction(ActionEvent actionEvent) {}
