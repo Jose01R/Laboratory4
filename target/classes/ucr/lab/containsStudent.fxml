@@ -31,11 +31,11 @@
                   <TextField fx:id="textFieldId" layoutX="206.0" layoutY="74.0" prefHeight="35.0" prefWidth="149.0" />
                </children>
             </Pane>
-            <Pane layoutY="283.0" prefHeight="119.0" prefWidth="600.0" style="-fx-background-color: #589c2e;">
+            <Pane layoutY="289.0" prefHeight="119.0" prefWidth="600.0" style="-fx-background-color: #589c2e;">
                <children>
-                  <Button layoutX="69.0" layoutY="39.0" mnemonicParsing="false" onAction="#containsOnAction" prefHeight="40.0" prefWidth="94.0" text="Contains" />
-                  <Button layoutX="364.0" layoutY="39.0" mnemonicParsing="false" onAction="#closeOnAction" prefHeight="43.0" prefWidth="86.0" text="Close" />
-                  <Button layoutX="219.0" layoutY="34.0" mnemonicParsing="false" onAction="#clearOnAction" prefHeight="43.0" prefWidth="81.0" text="Clear" />
+                  <Button layoutX="72.0" layoutY="26.0" mnemonicParsing="false" onAction="#containsOnAction" prefHeight="58.0" prefWidth="85.0" text="Contains" />
+                  <Button layoutX="444.0" layoutY="34.0" mnemonicParsing="false" onAction="#closeOnAction" prefHeight="43.0" prefWidth="86.0" text="Close" />
+                  <Button layoutX="240.0" layoutY="34.0" mnemonicParsing="false" onAction="#clearOnAction" prefHeight="43.0" prefWidth="81.0" text="Clear" />
                </children>
             </Pane>
          </children>
