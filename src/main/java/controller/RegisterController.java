@@ -1,6 +1,7 @@
 package controller;
 
 import domain.*;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -30,7 +31,6 @@ public class RegisterController {
 
     @javafx.fxml.FXML
     private TableView<Register> registrationTableview;
-
 
     @javafx.fxml.FXML
     private Button getFirstButton;
@@ -66,23 +66,24 @@ public class RegisterController {
     private DoublyLinkedList courseList;
     private SinglyLinkedList studentList;
     private DoublyLinkedList registerList;
-    ;
     private Alert alert;
 
     @javafx.fxml.FXML
     public void initialize() {
+        this.registerList = util.Utility.getRegisterList();
         registerObservableList = FXCollections.observableArrayList();
+
         // Configuración de las columnas del TableView
-        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+
         // Asignar el valor de Student ID y Name
-        idStudentTableColumn.setCellValueFactory(cellData -> {
-            String studentId = cellData.getValue().getStudentId();
-            return new SimpleStringProperty(studentId);
-        });
+        idStudentTableColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getStudentId())  // Verifica que Register tenga getStudentId()
+        );
 
         nameStudentTableColumn.setCellValueFactory(cellData -> {
             String studentId = cellData.getValue().getStudentId();
-            String studentName;
+            String studentName = null; // Método corregido
             try {
                 studentName = getStudentNameById(studentId);
             } catch (ListException e) {
@@ -92,14 +93,13 @@ public class RegisterController {
         });
 
         // Asignar el valor de Course ID y Name
-        idCourseTableColumn.setCellValueFactory(cellData -> {
-            String courseId = cellData.getValue().getCourseId();
-            return new SimpleStringProperty(courseId);
-        });
+        idCourseTableColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getCourseId()) // Verifica que Register tenga getCourseId()
+        );
 
         nameCourseTableColumn.setCellValueFactory(cellData -> {
             String courseId = cellData.getValue().getCourseId();
-            String courseName = null;
+            String courseName = null; // Método corregido
             try {
                 courseName = getCourseNameById(courseId);
             } catch (ListException e) {
@@ -109,33 +109,33 @@ public class RegisterController {
         });
 
         creditsTableColumn.setCellValueFactory(cellData -> {
+            int credits = 0; // Método corregido
             try {
-                return new SimpleIntegerProperty(getCreditsByCourseId(cellData.getValue().getCourseId())).asObject();
+                credits = getCreditsByCourseId(cellData.getValue().getCourseId());
             } catch (ListException e) {
                 throw new RuntimeException(e);
             }
+            return new SimpleIntegerProperty(credits).asObject();
         });
 
+        // Configuración de la columna de fecha
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         dateTableColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getRegisterDate().format(formatter))
         );
 
+        // Cargar los registros en la tabla
         try {
             if (registerList != null && !registerList.isEmpty()) {
-                for (int i = 1; i <= courseList.size(); i++) {
-                    registrationTableview.getItems().add((Register) registerList.getNode(i).data);
+                for (int i = 1; i <= registerList.size(); i++) {
+                    registerObservableList.add((Register) registerList.getNode(i).data);
                 }
             }
-            //this.studentTableView.setItems(observableList);
+            registrationTableview.setItems(registerObservableList);
         } catch (ListException ex) {
-            alert.setContentText("Course list is empty");
-            alert.showAndWait();
+            showError("Error", "La lista de registros está vacía.");
         }
-
-
     }
-
 
     @javafx.fxml.FXML
     public void addOnAction(ActionEvent actionEvent) {
@@ -143,93 +143,60 @@ public class RegisterController {
     }
 
     @javafx.fxml.FXML
-    public void addFirstOnAction(ActionEvent actionEvent) {
-    }
+    public void addFirstOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void clearOnAction(ActionEvent actionEvent) {
-    }
+    public void clearOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void removeOnAction(ActionEvent actionEvent) {
-    }
+    public void removeOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void addSortedOnAction(ActionEvent actionEvent) {
-    }
+    public void addSortedOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void getFirstOnAction(ActionEvent actionEvent) {
-    }
+    public void getFirstOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void removeFirstOnAction(ActionEvent actionEvent) {
-    }
+    public void removeFirstOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void getLastOnAction(ActionEvent actionEvent) {
-    }
+    public void getLastOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void containsOnAction(ActionEvent actionEvent) {
-    }
+    public void containsOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
-    public void sortOnAction(ActionEvent actionEvent) {
-    }
+    public void sortOnAction(ActionEvent actionEvent) {}
 
     @javafx.fxml.FXML
     public void sizeOnAction(ActionEvent actionEvent) {
+        try {
+            util.FXUtility.alert("MESSAGE", "The number of registers is: " + this.registerList.size());
+            util.Utility.setRegisterList(this.registerList); // Update the global list
+            updateTableView(); // Update the content of the TableView
+        } catch (ListException e) {
+            util.FXUtility.alert("ERROR", "ERROR OCURRED");
+        }
     }
-
-    /// ////////////////////////////////////////////
 
     // Método para actualizar la lista de registros
-    public void updateRegisterList(DoublyLinkedList updatedRegisterList) {
-        this.registerList = updatedRegisterList;
-
-        // Depuración: Imprimir los registros para verificar que se están recibiendo correctamente
-        System.out.println("Actualizando la lista de registros...");
-        printRegisterList();
-
-        // Aquí podrías actualizar la TableView o cualquier otro componente que use registerList
-        ObservableList<Register> observableRegisters = FXCollections.observableArrayList();
-
-        try {
-            for (int i = 1; i <= registerList.size(); i++) {
-                Register register = (Register) registerList.getNode(i).data;
-                observableRegisters.add(register);
+    public void updateTableView() throws ListException {
+        this.registrationTableview.getItems().clear(); //clear table
+        this.registerList = util.Utility.getRegisterList(); //cargo la lista
+        if(registerList != null && !registerList.isEmpty()){
+            for(int i = 1; i <= registerList.size(); i++) {
+                this.registrationTableview.getItems().add((Register) registerList.getNode(i).data);
             }
-            registrationTableview.setItems(observableRegisters);
-        } catch (ListException e) {
-            util.FXUtility.alert("ERROR", "No se pudo actualizar la lista de registros");
         }
     }
 
-    private void printRegisterList() {
-        try {
-            // Recorremos la lista de registros y los imprimimos
-            for (int i = 1; i <= registerList.size(); i++) {
-                Register register = (Register) registerList.getNode(i).data;
-                System.out.println("Registro " + i + ": ID = " + register.getId() +
-                        ", Fecha = " + register.getRegisterDate() +
-                        ", Student ID = " + register.getStudentId() +
-                        ", Course ID = " + register.getCourseId());
-            }
-        } catch (ListException e) {
-            System.out.println("Error al acceder a la lista de registros: " + e.getMessage());
-        }
-    }
-
-
-    /// ///////////////METODOS PARA OBTENER ELEMENTOS//////////////////////
-
+    // Métodos para obtener elementos
 
     // Obtener el nombre del estudiante por ID
     private String getStudentNameById(String studentId) throws ListException {
         if (studentList == null || studentList.isEmpty()) {
-            showError("Error", "La lista de estudiantes está vacía.");
-            return "Desconocido";
+            return "Desconocido"; // Retorna "Desconocido" si la lista está vacía
         }
         for (int i = 1; i <= studentList.size(); i++) {
             Student student = (Student) studentList.getNode(i).data;
@@ -237,15 +204,12 @@ public class RegisterController {
                 return student.getName();
             }
         }
-        showError("Error", "Estudiante no encontrado.");
-        return "Desconocido";
+        return "Desconocido"; // Si no se encuentra el estudiante, devuelve "Desconocido"
     }
 
-    // Obtener el nombre del curso por ID
     private String getCourseNameById(String courseId) throws ListException {
         if (courseList == null || courseList.isEmpty()) {
-            showError("Error", "La lista de cursos está vacía.");
-            return "Desconocido";
+            return "Desconocido"; // Retorna "Desconocido" si la lista está vacía
         }
         for (int i = 1; i <= courseList.size(); i++) {
             Course course = (Course) courseList.getNode(i).data;
@@ -253,15 +217,12 @@ public class RegisterController {
                 return course.getName();
             }
         }
-        showError("Error", "Curso no encontrado.");
-        return "Desconocido";
+        return "Desconocido"; // Si no se encuentra el curso, devuelve "Desconocido"
     }
 
-    // Obtener los créditos de un curso por ID
     private int getCreditsByCourseId(String courseId) throws ListException {
         if (courseList == null || courseList.isEmpty()) {
-            showError("Error", "La lista de cursos está vacía.");
-            return 0;
+            return 0; // Retorna 0 si la lista está vacía
         }
         for (int i = 1; i <= courseList.size(); i++) {
             Course course = (Course) courseList.getNode(i).data;
@@ -269,19 +230,16 @@ public class RegisterController {
                 return course.getCredits();
             }
         }
-        showError("Error", "Curso no encontrado.");
-        return 0;
+        return 0; // Si no se encuentra el curso, devuelve 0
     }
-
     // Método para mostrar alertas de error
     private void showError(String title, String message) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        Platform.runLater(() -> {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.showAndWait();
+        });
     }
-
-
-
 }
