@@ -353,7 +353,6 @@ public class RegisterController {
         } catch (ListException e) {
             showError("Error", "Failed to retrieve the previous element.");
         }
-
-
+        
     }
 }
